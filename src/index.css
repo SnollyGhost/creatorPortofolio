@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-serif: "Playfair Display", serif;
+
+  --color-brand-purple: #9333ea; /* More royal purple */
+  --color-brand-blue: #3b82f6;
+  --color-brand-offwhite: #F5F5F5;
+}
+
+@layer base {
+  body {
+    @apply bg-[#050505] text-[#F5F5F5] selection:bg-brand-purple/30 selection:text-brand-purple;
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3e%3cfilter id='noiseFilter'%3e%3cturbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3e%3c/filter%3e%3crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3e%3c/svg%3e");
+    pointer-events: none;
+    opacity: 0.15;
+  }
+
+  .mesh-gradient {
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+      radial-gradient(at 50% 0%, hsla(270,70%,20%,0.3) 0, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(253,16%,7%,1) 0, transparent 50%);
+  }
+
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    
+    body {
+      background: white !important;
+      color: black !important;
+    }
+    
+    section {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    
+    #analytics {
+      display: block !important;
+      background: white !important;
+      color: black !important;
+      page-break-after: always;
+    }
+    
+    .glass, .glass-dark {
+      background: white !important;
+      border: 1px solid #eee !important;
+      color: black !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+    }
+    
+    h2, h3, .text-gradient, .text-brand-gradient {
+      color: black !important;
+      background: none !important;
+      -webkit-text-fill-color: initial !important;
+      text-shadow: none !important;
+    }
+    
+    .text-white\/40, .text-white\/50, .text-white\/60 {
+      color: #777 !important;
+    }
+    
+    nav, #work, #hero, #packages, #about, #contact, #ai-bot-trigger, #ai-chat-window, .scroll-indicator, button, footer {
+      display: none !important;
+    }
+  }
+
+  .glass {
+    @apply bg-white/[0.03] backdrop-blur-md border border-white/10;
+  }
+
+  .glass-dark {
+    @apply bg-black/60 backdrop-blur-2xl border border-white/[0.05];
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#F5F5F5] via-white to-white/40;
+  }
+
+  .text-brand-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-purple to-brand-blue;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}

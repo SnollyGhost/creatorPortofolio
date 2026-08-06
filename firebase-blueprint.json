@@ -1,0 +1,58 @@
+{
+  "entities": {
+    "inquiry": {
+      "title": "Inquiry",
+      "description": "A business inquiry or partnership request from a visitor.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Full name of the inquirer."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Contact email address."
+        },
+        "company": {
+          "type": "string",
+          "description": "Brand or company name."
+        },
+        "package": {
+          "type": "string",
+          "description": "The selected promo package."
+        },
+        "message": {
+          "type": "string",
+          "description": "Additional details or project brief."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the inquiry was submitted."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "reviewed", "archived"],
+          "description": "Internal status of the inquiry."
+        },
+        "preferredMethod": {
+          "type": "string",
+          "enum": ["telegram", "whatsapp", "email"],
+          "description": "The client's preferred way to be contacted."
+        },
+        "phone": {
+          "type": "string",
+          "description": "The client's phone number for Telegram/WhatsApp."
+        }
+      },
+      "required": ["name", "email", "phone", "package", "createdAt", "status", "preferredMethod"]
+    }
+  },
+  "firestore": {
+    "inquiries": {
+      "schema": "inquiry",
+      "description": "Collection of visitor inquiries."
+    }
+  }
+}

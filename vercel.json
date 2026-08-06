@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/api/chat", "destination": "/api/chat.ts" },
+    { "source": "/api/portfolio.pdf", "destination": "/api/portfolio.pdf.ts" },
+    { "source": "/api/cv.pdf", "destination": "/api/cv.pdf.ts" },
+    { "source": "/api/notify", "destination": "/api/notify.ts" },
+    { "source": "/api/health", "destination": "/api/health.ts" },
+    { "source": "/((?!assets/|.*\\.[a-zA-Z0-9]+|api/).*)", "destination": "/index.html" }
+  ]
+}

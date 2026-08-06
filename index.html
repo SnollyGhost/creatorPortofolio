@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Naftech | Nafyad Dachasa - Official Creator Portfolio</title>
+    
+    <!-- Primary SEO Meta Tags -->
+    <!-- Google Search Console Verification Tag -->
+    <meta name="google-site-verification" content="U7UyTPuqO-BA5IpCHFJgYSZ1HS9YxCYUxeWd8ONmvcA" />
+    <meta name="description" content="Explore the official portfolio of Nafyad Dachasa (Naftech). Featuring advanced AI projects, local tech insights, and custom promotional packages." />
+    <meta name="keywords" content="Naftech, Nafyad Dachasa, Content Creator, Video Production, Video Editing, Social Growth, Digital Ads, Tech Creator, Ethiopia Partnerships" />
+    <meta name="author" content="Nafyad Dachasa" />
+    
+    <!-- Open Graph (Facebook, Telegram, LinkedIn, Discord) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Naftech | Nafyad Dachasa - Official Creator Portfolio" />
+    <meta property="og:description" content="Discover tech innovations and digital growth packages by Nafyad Dachasa." />
+    <meta property="og:image" content="/LOGO.png" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Naftech | Nafyad Dachasa - Official Creator Portfolio" />
+    <meta property="twitter:description" content="Discover tech innovations and digital growth packages by Nafyad Dachasa." />
+    <meta property="twitter:image" content="/LOGO.png" />
+
+    <link rel="icon" type="image/png" href="/LOGO.png" />
+    <script>
+      // Fix for "Uncaught TypeError: Cannot redefine property: ethereum"
+      // This error often occurs when multiple wallet extensions (e.g., MetaMask, Coinbase) 
+      // try to inject the same window.ethereum property into the page.
+      (function() {
+        const originalDefineProperty = Object.defineProperty;
+        Object.defineProperty = function(obj, prop, descriptor) {
+          if (obj === window && prop === 'ethereum') {
+            try {
+              return originalDefineProperty.call(Object, obj, prop, descriptor);
+            } catch (e) {
+              console.warn('NAFYAD: Handled conflict while defining window.ethereum.');
+              return obj;
+            }
+          }
+          return originalDefineProperty.call(Object, obj, prop, descriptor);
+        };
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
