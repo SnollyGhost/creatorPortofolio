@@ -32,10 +32,20 @@ export const Navbar = () => {
       const targetId = href.substring(1);
       const element = document.getElementById(targetId);
       if (element) {
-        // Calculate header offset if needed, or simply scroll into view
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // Update URL hash gracefully without forcing an abrupt jump
-        window.history.pushState(null, '', href);
+        // Use a tiny timeout to let the mobile menu close state trigger and layout settle
+        setTimeout(() => {
+          const offset = 80; // Height of the fixed navbar
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+          
+          // Update URL hash gracefully without forcing an abrupt jump
+          window.history.pushState(null, '', href);
+        }, 100);
       }
     } else {
       window.location.href = href;

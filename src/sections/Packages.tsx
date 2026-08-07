@@ -157,7 +157,7 @@ export const Packages = ({ onSelectPackage }: PackagesProps) => {
                           const numericPart = pkg.price.replace(' ETB', '').replace('ETB', '').trim();
                           return (
                             <div className="flex items-baseline gap-1.5">
-                              <span className="bg-gradient-to-r from-white to-white/95 bg-clip-text text-transparent blur-[6px] pointer-events-none transition-all duration-300">
+                              <span className="bg-gradient-to-r from-white to-white/95 bg-clip-text text-transparent blur-[6px] pointer-events-none">
                                 {numericPart}
                               </span>
                               <span className="bg-gradient-to-r from-white to-white/95 bg-clip-text text-transparent">
@@ -175,7 +175,7 @@ export const Packages = ({ onSelectPackage }: PackagesProps) => {
                               <span className="bg-gradient-to-r from-white to-white/95 bg-clip-text text-transparent">
                                 $
                               </span>
-                              <span className="bg-gradient-to-r from-white to-white/95 bg-clip-text text-transparent blur-[6px] pointer-events-none transition-all duration-300">
+                              <span className="bg-gradient-to-r from-white to-white/95 bg-clip-text text-transparent blur-[6px] pointer-events-none">
                                 {numericPart}
                               </span>
                             </div>

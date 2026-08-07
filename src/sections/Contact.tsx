@@ -46,7 +46,15 @@ export const Contact = ({ selectedPackage }: ContactProps) => {
   useEffect(() => {
     if (selectedPackage) {
       setFormData(prev => ({ ...prev, package: selectedPackage }));
-      sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+      if (sectionRef.current) {
+        const offset = 80; // Height of fixed navbar
+        const elementPosition = sectionRef.current.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
     }
   }, [selectedPackage]);
 
