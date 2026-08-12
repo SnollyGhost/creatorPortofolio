@@ -83,11 +83,11 @@
   }
 
   .glass {
-    @apply bg-white/[0.03] backdrop-blur-md border border-white/10;
+    @apply bg-white/[0.04] border border-white/10 md:backdrop-blur-md;
   }
 
   .glass-dark {
-    @apply bg-black/60 backdrop-blur-2xl border border-white/[0.05];
+    @apply bg-[#080808]/90 border border-white/[0.05] md:backdrop-blur-2xl;
   }
 
   .text-gradient {

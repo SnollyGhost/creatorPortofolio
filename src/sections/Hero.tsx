@@ -94,15 +94,14 @@ export const Hero = () => {
       />
 
       {/* Background Atmosphere */}
-      <div className="absolute inset-0 z-0 text-brand-offwhite pointer-events-none">
+      <div className="absolute inset-0 z-0 text-brand-offwhite pointer-events-none overflow-hidden">
         <motion.div 
           animate={{ 
             opacity: [0.15, 0.25, 0.15],
-            scale: [1, 1.05, 1],
-            rotate: [0, 45, 0]
+            scale: [1, 1.05, 1]
           }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 right-5 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[140px]" 
+          className="absolute top-1/4 right-5 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-purple-900/10 rounded-full blur-[80px] md:blur-[140px]" 
         />
         <motion.div 
           animate={{ 
@@ -110,13 +109,13 @@ export const Hero = () => {
             scale: [1, 1.1, 1]
           }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-1/4 left-5 w-[400px] h-[400px] bg-blue-900/10 rounded-full blur-[140px]" 
+          className="absolute bottom-1/4 left-5 w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-blue-900/10 rounded-full blur-[80px] md:blur-[140px]" 
         />
         <div className="absolute inset-0 mesh-gradient opacity-20" />
       </div>
 
       {/* Floating 3D Creative Glass Shapes (Non-Boring immersive spatial vibes) */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden hidden md:block">
         {/* Floating Capsule 1 */}
         <motion.div
           animate={{
@@ -125,7 +124,7 @@ export const Hero = () => {
             scale: [0.95, 1.05, 0.95]
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-24 left-10 md:left-[15%] w-16 md:w-24 h-32 md:h-48 rounded-full border border-white/10 bg-gradient-to-tr from-white/5 to-white/[0.01] backdrop-blur-xl flex flex-col items-center justify-center text-white/10 shadow-2xl opacity-40 md:opacity-75"
+          className="absolute top-24 left-10 md:left-[15%] w-16 md:w-24 h-32 md:h-48 rounded-full border border-white/10 bg-gradient-to-tr from-white/5 to-white/[0.01] md:backdrop-blur-xl flex flex-col items-center justify-center text-white/10 shadow-2xl opacity-40 md:opacity-75"
         >
           <Box className="w-6 h-6 md:w-8 md:h-8 animate-pulse text-white/20" />
         </motion.div>
@@ -138,7 +137,7 @@ export const Hero = () => {
             scale: [1, 0.9, 1]
           }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute right-8 md:right-[12%] bottom-32 w-16 md:w-20 h-32 md:h-40 rounded-full border border-white/[0.08] bg-gradient-to-b from-brand-purple/15 to-transparent backdrop-blur-md flex items-center justify-center shadow-2xl opacity-40 md:opacity-85"
+          className="absolute right-8 md:right-[12%] bottom-32 w-16 md:w-20 h-32 md:h-40 rounded-full border border-white/[0.08] bg-gradient-to-b from-brand-purple/15 to-transparent md:backdrop-blur-md flex items-center justify-center shadow-2xl opacity-40 md:opacity-85"
         >
           <Sparkles className="w-5 h-5 text-brand-purple/40" />
         </motion.div>

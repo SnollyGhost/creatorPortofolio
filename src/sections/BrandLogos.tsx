@@ -95,6 +95,7 @@ export const BrandLogos = () => {
         }
         .animate-scroll {
           animation: scroll 30s linear infinite;
+          will-change: transform;
         }
       `}} />
     </section>
