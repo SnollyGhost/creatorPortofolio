@@ -73,7 +73,7 @@ export const AnalyticsDashboard = () => {
               className="text-brand-purple font-display font-medium tracking-widest uppercase text-[11px] mb-4 flex items-center gap-2"
             >
               <Calendar className="w-3.5 h-3.5" />
-              1-Year Performance Analytics (Aug 2025 – Jul 2026)
+              1-Year Performance Analytics
             </motion.div>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}

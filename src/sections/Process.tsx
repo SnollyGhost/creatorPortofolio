@@ -85,14 +85,10 @@ export const Process = () => {
                   <step.icon className="w-5 h-5 text-white/40 group-hover:text-brand-purple transition-colors" />
                 </div>
                 
-                <h3 className="text-xl font-display font-medium text-white mb-4 group-hover:translate-x-2 transition-transform duration-500 flex items-center gap-2">
+                <h3 className="text-xl font-display font-medium text-white group-hover:translate-x-2 transition-transform duration-500 flex items-center gap-2">
                   <span className="text-brand-purple font-black shrink-0">0{idx + 1}.</span>
                   <span className="font-light">{step.title}</span>
                 </h3>
-                
-                <p className="text-sm text-white/40 font-light leading-relaxed">
-                  {step.description}
-                </p>
               </div>
             </motion.div>
           ))}

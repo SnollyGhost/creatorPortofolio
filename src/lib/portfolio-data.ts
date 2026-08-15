@@ -38,7 +38,7 @@ export const CENTRAL_STATS = {
 };
 
 export const STATS = {
-  totalFollowers: `${Math.floor((CENTRAL_STATS.tiktok.total + CENTRAL_STATS.meta.total + CENTRAL_STATS.youtube.total) / 1000)}K`,
+  totalFollowers: "200K",
   produced: `${CENTRAL_STATS.videosProducedCount}+`,
 };
 

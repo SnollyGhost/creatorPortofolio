@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { GoogleGenAI } from '@google/genai';
 
 const NAFYAD_INFO = `Nafyad (preferred name: Naf) is a Computer Science graduate and tech content creator who is helping shape the digital world in Ethiopia. As the founder of NafTech, he loves breaking down how modern technology works. He makes complicated topics like AI, blockchain, and space tech easy for everyone to understand through clean, high-quality videos and honest, research-backed insights.`;
 
@@ -119,6 +120,19 @@ INQUIRY LOGIC:
 Direct partners to the "Secure Inbound" form on the site for partnerships.`;
 }
 
+// Helper to race a promise against a timeout
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  let timeoutId: any;
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => {
+      reject(new Error("TimeoutError"));
+    }, ms);
+  });
+  return Promise.race([promise, timeoutPromise]).finally(() => {
+    clearTimeout(timeoutId);
+  });
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Handle preflight
   if (req.method === 'OPTIONS') {
@@ -144,66 +158,54 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const todayStr = dateStr || new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
     const systemPrompt = getSystemInstruction(todayStr, age);
 
-    // We prioritize gemini-3.1-flash-lite first for ultra-low-latency, falling back to other production-ready models to guarantee 100% service uptime.
-    const modelsToTry = ["gemini-3.1-flash-lite", "gemini-3.5-flash", "gemini-2.5-flash", "gemini-1.5-flash"];
+    // Prioritize gemini-3.7-flash, falling back to gemini-3.1-flash-lite or gemini-2.5-flash
+    const modelsToTry = ["gemini-3.7-flash", "gemini-3.1-flash-lite", "gemini-2.5-flash"];
     let reply = "";
     let lastError: any = null;
 
-    // Construct the payload content array cleanly
+    // Construct the payload content array cleanly for SDK compatibility
     const contents = [
       ...(messages || []).map((m: any) => ({
-        role: m.role === 'assistant' ? 'model' : m.role,
+        role: m.role === 'assistant' || m.role === 'model' ? 'model' : 'user',
         parts: [{ text: m.content || '' }]
       })),
       { role: "user", parts: [{ text: userMessage || '' }] }
     ];
 
-    const payload = {
-      contents,
-      systemInstruction: {
-        parts: [{ text: systemPrompt }]
-      },
-      generationConfig: {
-        temperature: 0.4
-      }
-    };
-
-    // Try models with clean AbortController timeouts to avoid hanging sockets on Vercel.
-    for (const model of modelsToTry) {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 3500); // 3.5s timeout per model
-
-      try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-        const response = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "User-Agent": "aistudio-build"
-          },
-          body: JSON.stringify(payload),
-          signal: controller.signal
-        });
-
-        clearTimeout(timeoutId);
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Google API responded with ${response.status}: ${errorText}`);
+    // Lazy initialization of the GoogleGenAI SDK client
+    const ai = new GoogleGenAI({
+      apiKey: apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build'
         }
+      }
+    });
 
-        const data = await response.json();
-        const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    // Try models with robust, non-blocking timeouts to avoid aborted calls
+    for (const model of modelsToTry) {
+      try {
+        const response = await withTimeout(
+          ai.models.generateContent({
+            model: model,
+            contents: contents,
+            config: {
+              systemInstruction: systemPrompt,
+              temperature: 0.4
+            }
+          }),
+          15000 // 15 seconds timeout per model (extremely robust yet safe)
+        );
+
+        const textResult = response.text;
         if (textResult) {
           reply = textResult;
           break; // Success!
         } else {
-          throw new Error(`Empty response candidates or invalid structure: ${JSON.stringify(data)}`);
+          throw new Error("Empty response returned from model.");
         }
       } catch (err: any) {
-        clearTimeout(timeoutId);
-        const errName = err.name === 'AbortError' ? 'TimeoutError' : err.name;
-        console.warn(`Model ${model} failed or timed out (${errName}):`, err.message);
+        console.warn(`Model ${model} failed or timed out:`, err.message);
         lastError = err;
       }
     }

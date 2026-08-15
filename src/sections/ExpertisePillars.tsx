@@ -30,7 +30,7 @@ export const ExpertisePillars = () => {
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8">
           {NICHES.map((niche, idx) => (
             <motion.div
               key={niche.id}
@@ -38,49 +38,37 @@ export const ExpertisePillars = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.15, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative rounded-[36px] overflow-hidden border border-white/[0.06] bg-[#070707] transition-all duration-700 hover:border-brand-purple/20 hover:-translate-y-3.5 hover:shadow-[0_25px_60px_-15px_rgba(147,51,234,0.15)] flex flex-col"
+              className="group relative rounded-[36px] border border-white/[0.06] bg-[#070707] transition-all duration-700 hover:border-brand-purple/20 hover:-translate-y-3.5 hover:shadow-[0_25px_60px_-15px_rgba(147,51,234,0.15)] flex flex-col"
             >
-              {/* Spotlight Glass Beam Effect */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-brand-purple/0 via-[#9333ea]/[0.02] to-[#3b82f6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-              
-              <div className={cn("absolute inset-0 bg-gradient-to-b opacity-10 transition-opacity duration-700 group-hover:opacity-25", niche.color)} />
-              
-              <div className="p-8 md:p-9 flex flex-col justify-start gap-7 h-full z-10">
-                <div className="flex justify-between items-start">
-                   <motion.div 
-                     animate={{ rotate: [0, 6, 0] }}
-                     transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                     className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-center backdrop-blur-xl group-hover:scale-110 group-hover:bg-brand-purple/15 transition-all duration-500 shadow-lg"
-                   >
-                      {getIcon(niche.id)}
-                   </motion.div>
-                   <div className="text-[10px] font-black uppercase tracking-[0.25em] text-brand-purple bg-brand-purple/10 px-4 py-1.5 rounded-full border border-brand-purple/20 group-hover:bg-brand-purple/25 group-hover:text-white transition-all duration-300">
-                      Universe 0{idx + 1}
-                   </div>
-                </div>
-
-                <div>
-                   <div className="text-brand-purple text-[10px] font-bold uppercase tracking-[0.35em] mb-2">{niche.subtitle}</div>
-                   <h3 className="text-4xl font-display font-bold mb-4 tracking-tighter text-white group-hover:text-brand-purple transition-colors duration-500">{niche.title}</h3>
-                   <p className="text-white/50 text-sm font-light leading-relaxed mb-8 opacity-90 group-hover:opacity-100 transition-all duration-500">
-                     {niche.description}
-                   </p>
-                   
-                   <div className="flex items-center justify-between pt-6 border-t border-white/[0.05]">
-                      <div>
-                         <div className="text-[9px] text-white/30 uppercase font-bold tracking-widest mb-1">Key Performance</div>
-                         <div className="text-2xl font-display font-medium text-white tracking-tight">{niche.metric}</div>
-                      </div>
-                      <div className="w-11 h-11 rounded-full glass flex items-center justify-center border border-white/10 group-hover:border-brand-purple group-hover:bg-brand-purple group-hover:text-white transition-all transform group-hover:translate-x-0 translate-x-2 opacity-50 group-hover:opacity-100">
-                         <ArrowUpRight className="w-4 h-4" />
-                      </div>
-                   </div>
+              {/* Contained Background Atmosphere & Overlays */}
+              <div className="absolute inset-0 rounded-[36px] overflow-hidden pointer-events-none">
+                {/* Spotlight Glass Beam Effect */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-brand-purple/0 via-[#9333ea]/[0.02] to-[#3b82f6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                
+                <div className={cn("absolute inset-0 bg-gradient-to-b opacity-10 transition-opacity duration-700 group-hover:opacity-25", niche.color)} />
+                
+                {/* Graphic Element In Background */}
+                <div className="absolute bottom-0 right-0 p-8 opacity-5 group-hover:opacity-[0.12] transition-opacity duration-700 pointer-events-none mix-blend-screen">
+                  {getLargeIcon(niche.id)}
                 </div>
               </div>
 
-              {/* Graphic Element In Background */}
-              <div className="absolute bottom-0 right-0 p-8 opacity-5 group-hover:opacity-[0.12] transition-opacity duration-700 pointer-events-none mix-blend-screen">
-                 {getLargeIcon(niche.id)}
+              {/* Embedded Top-Left Logo/Icon with 80/20 Overlap */}
+              <div 
+                className="absolute -top-2.5 md:-top-3 left-8 md:left-9 z-20 w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-[#0d0d12] border border-white/15 flex items-center justify-center backdrop-blur-xl group-hover:scale-105 group-hover:border-brand-purple/50 group-hover:bg-[#12101b] transition-all duration-500 shadow-[0_10px_25px_rgba(0,0,0,0.85),0_0_15px_rgba(147,51,234,0.18)]"
+              >
+                {getIcon(niche.id)}
+              </div>
+              
+              <div className="p-8 md:p-9 flex flex-col justify-between h-full z-10">
+                <div className="pt-10 md:pt-12">
+                   <h3 className="text-3xl md:text-4xl font-display font-bold mb-4 tracking-tighter text-white group-hover:text-brand-purple transition-colors duration-500">{niche.title}</h3>
+                   <p className="text-white/50 text-sm font-light leading-relaxed mb-8 opacity-90 group-hover:opacity-100 transition-all duration-500">
+                     {niche.description}
+                   </p>
+                </div>
+                   
+               
               </div>
             </motion.div>
           ))}
