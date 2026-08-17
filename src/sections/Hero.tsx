@@ -163,26 +163,22 @@ export const Hero = () => {
         animate="visible"
         className="relative z-10 max-w-7xl mx-auto px-6 text-center"
       >
-        <h1 className="sr-only">Naftech | Nafyad Dachasa - Premium Tech Content Creator & Video Architect</h1>
-
         <motion.div
           variants={itemVariants}
           className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass border border-white/[0.07] mb-8 bg-white/[0.02] hover:bg-white/[0.06] transition-all duration-300"
         >
           <Sparkles className="w-3.5 h-3.5 text-brand-purple animate-pulse" />
-          <span className="text-[10px] font-bold uppercase tracking-[0.35em] text-white/80">Creator Portfolio</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.35em] text-white/80">Nafyad • Official Creator Portfolio</span>
         </motion.div>
 
-        <motion.div
+        <motion.h1
           variants={itemVariants}
-          role="heading"
-          aria-level={2}
           className="text-6xl md:text-8xl lg:text-[9.5rem] font-display font-light leading-[0.82] tracking-tighter mb-10 select-none"
         >
           <span className="text-gradient block">TURNING</span>
           <span className="italic font-serif text-[#ECECEC] block my-1">CONTENT</span>
           <span className="text-brand-gradient font-bold drop-shadow-[0_0_55px_rgba(147,51,234,0.45)] block uppercase">INTO ATTENTION.</span>
-        </motion.div>
+        </motion.h1>
 
         {/* Elevated Stats Display Grid (Aligned with high-end landing elements) */}
         <motion.div 

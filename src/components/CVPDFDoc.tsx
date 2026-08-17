@@ -205,7 +205,7 @@ export const CVPDFDoc = () => {
             <Text style={styles.contactItem}>Email: <Link src={`mailto:${BUSINESS_EMAIL}`} style={styles.contactLink}>{BUSINESS_EMAIL}</Link></Text>
             <Text style={styles.contactItem}>Portfolio: <Link src="https://nafyad.vercel.app" style={styles.contactLink}>{WEBSITE}</Link></Text>
             <Text style={styles.contactItem}>TikTok: <Link src="https://tiktok.com/@nafyad_" style={styles.contactLink}>@nafyad_</Link></Text>
-            <Text style={styles.contactItem}>LinkedIn: <Link src="https://linkedin.com" style={styles.contactLink}>linkedin.com/in/nafyad-dachasa</Link></Text>
+            <Text style={styles.contactItem}>LinkedIn: <Link src="https://linkedin.com/in/nafyad-dechasa-7067bb26a" style={styles.contactLink}>linkedin.com/in/nafyad-dechasa</Link></Text>
           </View>
         </View>
 
@@ -328,7 +328,7 @@ export const CVPDFDoc = () => {
 
         {/* Footer */}
         <View style={styles.footer}>
-          <Text>Nafyad Dachasa — Professional CV / Resume</Text>
+          <Text>Nafyad Dechasa — Professional CV / Resume</Text>
           <Text>Generated via NafTech Digital Engine</Text>
         </View>
 

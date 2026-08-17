@@ -75,8 +75,8 @@ app.post("/api/chat", async (req, res) => {
 
     const systemPrompt = getSystemInstruction(dateStr, currentAge);
 
-    // Prioritize gemini-3.7-flash, falling back to gemini-3.1-flash-lite or gemini-2.5-flash
-    const modelsToTry = ["gemini-3.7-flash", "gemini-3.1-flash-lite", "gemini-2.5-flash"];
+    // Prioritize highly stable and fast production models to completely avoid 503s
+    const modelsToTry = ["gemini-2.5-flash", "gemini-3.1-flash-lite", "gemini-3.7-flash"];
     let reply = "";
     let lastError: any = null;
 
@@ -180,7 +180,7 @@ app.get("/api/cv.pdf", async (req, res) => {
     const stream = await renderToStream(React.createElement(CVPDFDoc));
     
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename=Naftech_Nafyad_Dachasa_CV.pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=Nafyad_Dechasa_CV.pdf');
     
     stream.pipe(res);
   } catch (error: any) {

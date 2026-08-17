@@ -9,7 +9,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const buffer = await pdf(doc).toBuffer();
     
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename=Naftech_Nafyad_Dachasa_CV.pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=Nafyad_Dechasa_CV.pdf');
     res.status(200).send(buffer);
   } catch (error: any) {
     console.error('CV PDF compilation error:', error);

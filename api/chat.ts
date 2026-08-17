@@ -158,8 +158,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const todayStr = dateStr || new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
     const systemPrompt = getSystemInstruction(todayStr, age);
 
-    // Prioritize gemini-3.7-flash, falling back to gemini-3.1-flash-lite or gemini-2.5-flash
-    const modelsToTry = ["gemini-3.7-flash", "gemini-3.1-flash-lite", "gemini-2.5-flash"];
+    // Prioritize highly stable and fast production models to completely avoid 503s
+    const modelsToTry = ["gemini-2.5-flash", "gemini-3.1-flash-lite", "gemini-3.7-flash"];
     let reply = "";
     let lastError: any = null;
 
