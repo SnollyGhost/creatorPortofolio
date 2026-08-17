@@ -34,6 +34,15 @@ if (process.env.NODE_ENV !== "production") {
 const app = express();
 app.use(express.json());
 
+// Redirect legacy domains (nafyad.vercel.app, naftech.vercel.app) to primary domain nafyad.tech
+app.use((req, res, next) => {
+  const host = req.headers.host;
+  if (host && (host.includes('nafyad.vercel.app') || host.includes('naftech.vercel.app'))) {
+    return res.redirect(301, `https://www.nafyad.tech${req.originalUrl}`);
+  }
+  next();
+});
+
 // Transporter cache
 let transporter: nodemailer.Transporter | null = null;
 

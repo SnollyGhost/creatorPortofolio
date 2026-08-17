@@ -1,4 +1,18 @@
 {
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "nafyad.vercel.app" }],
+      "destination": "https://www.nafyad.tech/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "naftech.vercel.app" }],
+      "destination": "https://www.nafyad.tech/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/api/chat", "destination": "/api/chat.ts" },
     { "source": "/api/portfolio.pdf", "destination": "/api/portfolio.pdf.ts" },
