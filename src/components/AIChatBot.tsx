@@ -77,24 +77,23 @@ export const AIChatBot = () => {
         }),
       });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        let parsedMessage = "";
+      let data: any = null;
+      try {
+        const text = await response.text();
         try {
-          const parsed = JSON.parse(errorText);
-          parsedMessage = parsed.message || parsed.error || errorText;
+          data = JSON.parse(text);
         } catch {
-          parsedMessage = errorText;
+          data = { status: response.ok ? 'ok' : 'error', message: text };
         }
-        throw new Error(parsedMessage || `Server returned status ${response.status}`);
+      } catch (err: any) {
+        throw new Error(`Failed to read response: ${err.message}`);
       }
 
-      const data = await response.json();
-
-      if (data.status === "ok" && data.reply) {
+      if (response.ok && data && data.status === "ok" && data.reply) {
         setMessages((prev) => [...prev, { role: "model", content: data.reply }]);
       } else {
-        throw new Error(data.message || "Failed to fetch AI reply");
+        const msg = (data && (data.message || data.error)) || `Server returned status ${response.status}`;
+        throw new Error(msg);
       }
     } catch (error: any) {
       console.error("Chat Error:", error);
