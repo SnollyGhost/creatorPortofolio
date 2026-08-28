@@ -3,6 +3,51 @@ import { motion, useInView, Variants } from "framer-motion";
 import { Instagram, Youtube, Facebook, ArrowUpRight, Sparkles, Box } from 'lucide-react';
 import { SOCIAL_LINKS, CREATOR_NAME, STATS } from '../lib/data';
 
+const TiktokIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.06-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.03 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.93-2.01 6.12-1.77 0 1.39-.02 2.77-.03 4.15-.8-.19-1.66-.19-2.4-.06-1.01.24-1.92.83-2.48 1.69-.53.76-.75 1.73-.59 2.64.12 1.05.7 2 1.57 2.63.94.71 2.15.91 3.32.74 1.33-.11 2.56-.88 3.23-2.03.41-.63.63-1.36.65-2.11V.02Z"/>
+  </svg>
+);
+
+const SOCIAL_HERO_LINKS = [
+  {
+    name: 'TikTok',
+    handle: '@nafyad_',
+    followers: '94K',
+    href: SOCIAL_LINKS.tiktok,
+    icon: TiktokIcon,
+    hoverClass: 'hover:border-cyan-400/40 hover:text-cyan-300 hover:shadow-[0_0_25px_rgba(34,211,238,0.18)] hover:bg-cyan-500/[0.05]',
+    iconColor: 'text-white/80 group-hover:text-cyan-400',
+  },
+  {
+    name: 'Instagram',
+    handle: '@n.a.f.y.a.d',
+    followers: '10K',
+    href: SOCIAL_LINKS.instagram,
+    icon: Instagram,
+    hoverClass: 'hover:border-pink-500/40 hover:text-pink-300 hover:shadow-[0_0_25px_rgba(244,114,182,0.18)] hover:bg-pink-500/[0.05]',
+    iconColor: 'text-white/80 group-hover:text-pink-400',
+  },
+  {
+    name: 'YouTube',
+    handle: '@NafTech00',
+    followers: '49.3K',
+    href: SOCIAL_LINKS.youtube,
+    icon: Youtube,
+    hoverClass: 'hover:border-red-500/40 hover:text-red-300 hover:shadow-[0_0_25px_rgba(239,68,68,0.18)] hover:bg-red-500/[0.05]',
+    iconColor: 'text-white/80 group-hover:text-red-500',
+  },
+  {
+    name: 'Facebook',
+    handle: 'Nafyad',
+    followers: '52K',
+    href: SOCIAL_LINKS.facebook,
+    icon: Facebook,
+    hoverClass: 'hover:border-blue-500/40 hover:text-blue-300 hover:shadow-[0_0_25px_rgba(59,130,246,0.18)] hover:bg-blue-500/[0.05]',
+    iconColor: 'text-white/80 group-hover:text-blue-400',
+  },
+];
+
 const StatItem = ({ value, label }: { value: string, label: string }) => {
   const [displayValue, setDisplayValue] = useState(0);
   const targetValue = parseInt(value.replace(/[^0-9]/g, ''));
@@ -183,10 +228,31 @@ export const Hero = () => {
         {/* Elevated Stats Display Grid (Aligned with high-end landing elements) */}
         <motion.div 
           variants={itemVariants}
-          className="grid grid-cols-2 gap-4 max-w-lg mx-auto mb-12"
+          className="grid grid-cols-2 gap-4 max-w-lg mx-auto mb-6"
         >
           <StatItem value={STATS.totalFollowers} label="Global Content Community" />
           <StatItem value={STATS.produced} label="High-Retention Videos Produced" />
+        </motion.div>
+
+        {/* Prominent Quick-Connect Social Channels (TikTok, Instagram, YouTube, Facebook) - Single Row */}
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-nowrap items-center justify-center gap-1.5 sm:gap-3 max-w-3xl mx-auto mb-12 overflow-x-auto no-scrollbar py-1"
+        >
+          {SOCIAL_HERO_LINKS.map((social) => (
+            <a
+              key={social.name}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Connect with Nafyad on ${social.name} (${social.followers})`}
+              className={`group relative inline-flex items-center gap-1.5 sm:gap-2.5 px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-full bg-white/[0.02] border border-white/[0.08] backdrop-blur-md transition-all duration-300 whitespace-nowrap flex-shrink-0 ${social.hoverClass}`}
+            >
+              <social.icon className={`w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 transition-colors ${social.iconColor}`} />
+              <span className="text-[11px] sm:text-xs font-semibold text-white/90 group-hover:text-white transition-colors">{social.name}</span>
+              <span className="text-[9px] sm:text-[10px] font-mono px-1 sm:px-1.5 py-0.5 rounded-md bg-white/[0.04] text-white/40 group-hover:text-white/80 group-hover:bg-white/[0.1] transition-colors">{social.followers}</span>
+            </a>
+          ))}
         </motion.div>
 
         <motion.div

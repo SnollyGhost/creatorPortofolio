@@ -123,7 +123,7 @@ export const AIChatBot = () => {
   const QUICK_REPLIES = [
     "What services do you offer?",
     "How to partner with you?",
-    "Tell me about NafTech",
+    "Tell me about Nafyad",
   ];
 
   return (

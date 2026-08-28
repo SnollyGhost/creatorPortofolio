@@ -84,8 +84,14 @@ app.post("/api/chat", async (req, res) => {
 
     const systemPrompt = getSystemInstruction(dateStr, currentAge);
 
-    // Prioritize highly stable and fast production models to completely avoid 503s
-    const modelsToTry = ["gemini-2.5-flash", "gemini-3.1-flash-lite", "gemini-3.7-flash"];
+    // Prioritize active, supported production models (gemini-3.6-flash, gemini-3.5-flash-lite, etc.)
+    const modelsToTry = [
+      "gemini-3.6-flash",
+      "gemini-3.5-flash-lite",
+      "gemini-3.7-flash",
+      "gemini-3.1-flash-lite",
+      "gemini-flash-latest"
+    ];
     let reply = "";
     let lastError: any = null;
 
@@ -108,7 +114,7 @@ app.post("/api/chat", async (req, res) => {
       }
     });
 
-    // Try models with robust, non-blocking timeouts to avoid aborted calls
+    // Try models with robust failover and timeout to handle high-demand spikes
     for (const model of modelsToTry) {
       try {
         const response = await withTimeout(
@@ -120,19 +126,22 @@ app.post("/api/chat", async (req, res) => {
               temperature: 0.4
             }
           }),
-          15000 // 15 seconds timeout per model (extremely robust yet safe)
+          12000 // 12 seconds per attempt
         );
 
         const textResult = response.text;
-        if (textResult) {
+        if (textResult && textResult.trim().length > 0) {
           reply = textResult;
           break; // Success!
         } else {
           throw new Error("Empty response returned from model.");
         }
       } catch (err: any) {
-        console.warn(`Model ${model} failed or timed out:`, err.message);
+        console.warn(`Model ${model} unavailable (attempting next fallback):`, err.message);
         lastError = err;
+        if (err.message?.includes('503') || err.message?.includes('429') || err.message?.includes('UNAVAILABLE')) {
+          await new Promise((resolve) => setTimeout(resolve, 300));
+        }
       }
     }
 

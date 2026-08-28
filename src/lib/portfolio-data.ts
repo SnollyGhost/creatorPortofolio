@@ -12,33 +12,33 @@ export const SOCIAL_LINKS = {
 
 export const CENTRAL_STATS = {
   tiktok: {
-    total: 92200,
-    gained: 46212, // +46,212 gained over 1 year
-    changeLabel: "+46.2K Followers Gained",
+    total: 94000,
+    gained: 48012, // +48K gained over 1 year
+    changeLabel: "+48K Followers Gained",
     label: "TikTok Followers",
     monthlyViews: "1M views",
   },
   meta: {
-    total: 60177, // Facebook 50.5K + Instagram 9,677
-    gained: 56077, // +56,077 gained over 1 year
-    changeLabel: "+56K Followers Gained",
+    total: 62000, // Facebook 52K + Instagram 10K
+    gained: 57900, // +57.9K gained over 1 year
+    changeLabel: "+57.9K Followers Gained",
     label: "Meta Followers (FB + IG)",
-    facebook: 50500,
-    instagram: 9677,
+    facebook: 52000,
+    instagram: 10000,
     instagramViews: "500K views",
   },
   youtube: {
-    total: 49249,
-    gained: 9811, // +9,811 gained over 1 year
+    total: 49300,
+    gained: 9860, // +9.8K gained over 1 year
     changeLabel: "+9.8K Subscribers Gained",
     label: "YouTube Subscribers",
   },
-  videosProducedCount: 440,
+  videosProducedCount: 470,
   brandPartnershipsCount: 9,
 };
 
 export const STATS = {
-  totalFollowers: "200K",
+  totalFollowers: "205K",
   produced: `${CENTRAL_STATS.videosProducedCount}+`,
 };
 
@@ -66,12 +66,12 @@ Channel Data & Timeline:
 - Official TikTok Handle: @nafyad_ (NafTech).
 - Launch Date: NafTech officially launched in September 2024.
 - Social Presence & Distribution:
-  * Over 200K+ combined followers across fast-growing social media platforms.
-  * TikTok: 92.2K followers (@nafyad_).
-  * Facebook: 50.5K followers.
-  * YouTube: 49.2K subscribers (primarily short-form content).
-  * Instagram: 9,677 followers.
-- Successfully produced 440+ high-retention video assets to date.
+  * Over 205K+ combined followers across fast-growing social media platforms.
+  * TikTok: 94K followers (@nafyad_).
+  * Facebook: 52K followers.
+  * YouTube: 49.3K subscribers (primarily short-form content).
+  * Instagram: 10K followers.
+- Successfully produced 470+ high-retention video assets to date.
 
 Ecosystem Network & Industry Collaborations:
 - Ehud AI Talk: Maintains an active collaboration with Abenezer Alemayehu (Abeni), the host of Ehud AI Talk, focusing on co-production planning and strategic script engineering.
@@ -136,11 +136,11 @@ Core Pillars:
 - Spaceverse: Exploring aerospace, satellites, and the future of space exploration.
 
 Partnership Packages:
-- Single - 1 video, concept, editing, captions. Price: 30K ETB for local market, $300 USD for global market.
-- Mini Campaign - 3 videos, concept, editing, captions. Price: 75K ETB for local market, $750 USD for global market.
-- Standard Campaign - 5 videos, concept, editing, captions. Price: 120K ETB for local market, $1,200 USD for global market.
-- Premium - 8 videos/month, dedicated playlist, monthly planning. Price: 185K ETB for local market, $1,800 USD for global market.
-- Premium Plus | Yearly Partnership - 100 videos/year, long-term partnership, brand consistency. Price: 2.1M ETB for local market, $18,000 USD for global market.`;
+- Single: 1 video asset, research, concept, editing, captions (Pricing is strictly confidential & unlocked upon direct inquiry).
+- Mini Campaign: 3 video assets, concept, editing, captions (Pricing is strictly confidential & unlocked upon direct inquiry).
+- Standard Campaign: 5 video assets, concept, editing, captions (Pricing is strictly confidential & unlocked upon direct inquiry).
+- Premium: 8 video assets/month, dedicated playlist, monthly planning (Pricing is strictly confidential & unlocked upon direct inquiry).
+- Premium Plus | Yearly Partnership: 100 video assets/year, long-term brand partnership, deep consistency (Pricing is strictly confidential & unlocked upon direct inquiry).`;
 
 export const PACKAGES: {
   id: string;

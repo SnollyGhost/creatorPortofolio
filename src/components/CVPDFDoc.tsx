@@ -215,7 +215,7 @@ export const CVPDFDoc = () => {
             <Text style={styles.sectionTitle}>Professional Summary</Text>
           </View>
           <Text style={styles.summaryText}>
-            First-class Computer Science graduate with a 3.9 CGPA, combining a rigorous technical software engineering background with extensive, verified real-world expertise in digital ecosystem growth and premium high-retention video production. Founder of NafTech, a fast-growing digital education community reaching over 200,000+ total active followers across global communication networks. Proven track record executing strategic commercial campaigns for institutional fintech, crypto, and software brands—delivering optimized user acquisition and technical storytelling.
+            First-class Computer Science graduate with a 3.9 CGPA, combining a rigorous technical software engineering background with extensive, verified real-world expertise in digital ecosystem growth and premium high-retention video production. Founder of NafTech, a fast-growing digital education community reaching over 205,000+ total active followers across global communication networks. Proven track record executing strategic commercial campaigns for institutional fintech, crypto, and software brands—delivering optimized user acquisition and technical storytelling.
           </Text>
         </View>
 
@@ -252,11 +252,11 @@ export const CVPDFDoc = () => {
             <View style={styles.bulletList}>
               <View style={styles.bulletPointContainer}>
                 <Text style={styles.bulletSymbol}>•</Text>
-                <Text style={styles.bulletText}>Built an organic distribution asset from 0 to over 200,000+ combined, active tech-oriented followers within 18 months, engineering consistent high-retention software analyses.</Text>
+                <Text style={styles.bulletText}>Built an organic distribution asset from 0 to over 205,000+ combined, active tech-oriented followers within 18 months, engineering consistent high-retention software analyses.</Text>
               </View>
               <View style={styles.bulletPointContainer}>
                 <Text style={styles.bulletSymbol}>•</Text>
-                <Text style={styles.bulletText}>Engineered and distributed 440+ research-verified video representations covering complex emerging concepts including Artificial Intelligence (LLMs, neural structures), Cryptography, Web3 Futures, and Space Exploration.</Text>
+                <Text style={styles.bulletText}>Engineered and distributed 470+ research-verified video representations covering complex emerging concepts including Artificial Intelligence (LLMs, neural structures), Cryptography, Web3 Futures, and Space Exploration.</Text>
               </View>
               <View style={styles.bulletPointContainer}>
                 <Text style={styles.bulletSymbol}>•</Text>

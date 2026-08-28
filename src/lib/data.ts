@@ -204,11 +204,11 @@ export const VIDEOS: Video[] = [
 export const METRICS: Metric[] = [
   {
     label: CENTRAL_STATS.tiktok.label,
-    value: `${(CENTRAL_STATS.tiktok.total / 1000).toFixed(1)}K Followers`,
+    value: `${(CENTRAL_STATS.tiktok.total / 1000).toFixed(1).replace(/\.0$/, '')}K Followers`,
     change: CENTRAL_STATS.tiktok.changeLabel,
     isPositive: true,
     period: '1 Year',
-    platformDetails: `${CENTRAL_STATS.tiktok.total.toLocaleString()} total TikTok followers (${CENTRAL_STATS.tiktok.changeLabel} over 1 year, starting from ${(CENTRAL_STATS.tiktok.total - CENTRAL_STATS.tiktok.gained).toLocaleString()}).`,
+    platformDetails: `${CENTRAL_STATS.tiktok.total.toLocaleString()} total TikTok followers.`,
     data: [
       { name: 'Aug 25', value: 49500 },
       { name: 'Sep 25', value: 54000 },
@@ -226,11 +226,11 @@ export const METRICS: Metric[] = [
   },
   {
     label: CENTRAL_STATS.meta.label,
-    value: `${(CENTRAL_STATS.meta.total / 1000).toFixed(1)}K Followers`,
+    value: `${(CENTRAL_STATS.meta.total / 1000).toFixed(1).replace(/\.0$/, '')}K Followers`,
     change: CENTRAL_STATS.meta.changeLabel,
     isPositive: true,
     period: '1 Year',
-    platformDetails: `Combined Meta audience: ${(CENTRAL_STATS.meta.facebook / 1000).toFixed(1)}K Facebook followers + ${(CENTRAL_STATS.meta.instagram / 1000).toFixed(1)}K Instagram followers.`,
+    platformDetails: `Combined Meta audience: ${(CENTRAL_STATS.meta.facebook / 1000).toFixed(1).replace(/\.0$/, '')}K Facebook followers + ${(CENTRAL_STATS.meta.instagram / 1000).toFixed(1).replace(/\.0$/, '')}K Instagram followers.`,
     data: [
       { name: 'Aug 25', value: 4100 },
       { name: 'Sep 25', value: 4300 },
@@ -248,11 +248,11 @@ export const METRICS: Metric[] = [
   },
   {
     label: CENTRAL_STATS.youtube.label,
-    value: `${(CENTRAL_STATS.youtube.total / 1000).toFixed(1)}K Subscribers`,
+    value: `${(CENTRAL_STATS.youtube.total / 1000).toFixed(1).replace(/\.0$/, '')}K Subscribers`,
     change: CENTRAL_STATS.youtube.changeLabel,
     isPositive: true,
     period: '1 Year',
-    platformDetails: `${CENTRAL_STATS.youtube.total.toLocaleString()} total YouTube subscribers with ${CENTRAL_STATS.youtube.changeLabel} over 12 months.`,
+    platformDetails: `${CENTRAL_STATS.youtube.total.toLocaleString()} total YouTube subscribers.`,
     data: [
       { name: 'Aug 25', value: 39438 },
       { name: 'Sep 25', value: 39437 },

@@ -3,9 +3,9 @@ import { CENTRAL_STATS, PACKAGES, NAFYAD_INFO } from './portfolio-data';
 export { NAFYAD_INFO };
 
 export function getSystemInstruction(dateStr: string, currentAge: number): string {
-  const tiktokK = (CENTRAL_STATS.tiktok.total / 1000).toFixed(1);
-  const fbK = (CENTRAL_STATS.meta.facebook / 1000).toFixed(1);
-  const ytK = (CENTRAL_STATS.youtube.total / 1000).toFixed(1);
+  const tiktokK = (CENTRAL_STATS.tiktok.total / 1000).toFixed(1).replace(/\.0$/, '');
+  const fbK = (CENTRAL_STATS.meta.facebook / 1000).toFixed(1).replace(/\.0$/, '');
+  const ytK = (CENTRAL_STATS.youtube.total / 1000).toFixed(1).replace(/\.0$/, '');
   const igFormatted = CENTRAL_STATS.meta.instagram.toLocaleString();
   const totalFollowersFormatted = (CENTRAL_STATS.tiktok.total + CENTRAL_STATS.meta.total + CENTRAL_STATS.youtube.total).toLocaleString();
   const totalK = Math.floor((CENTRAL_STATS.tiktok.total + CENTRAL_STATS.meta.total + CENTRAL_STATS.youtube.total) / 1000);
@@ -102,15 +102,15 @@ PROFESSIONAL BRAND PARTNERS & COLLABORATIONS (VERY IMPORTANT):
 * Ethiopian Blockchain Week (EBW): A premier technology event bringing together global leaders, developers, policymakers, and Web3 enthusiasts in Addis Ababa. Highlights decentralized finance (DeFi), blockchain development, and digital innovation, directly supporting Ethiopia’s aspirations to become a leading tech hub under the Digital Ethiopia 2030 strategy.
 These are all official integrated brand entities and verified clients that Nafyad has made promotional tech content or campaigns for.
 
-PRICING INFORMATION & SUSPENSE POLICY (CRITICAL):
-- ABSOLUTE NUMERICAL SILENCE: To maintain high-end exclusivity, suspense, and curiosity, you are STRICTLY FORBIDDEN from revealing, mentioning, or hinting at any exact numerical pricing values (such as "30K", "75K", "120K", "185K", "2.1M", "$300", "$750", "$1,200", "$1,850", or "$21,000") in your chat responses.
-- If asked about prices or rates, follow this strategy:
-  * Inform the user that the exact pricing figures are kept highly curated and confidential on the portfolio to maintain a customized, high-tier partnership dynamic.
-  * Mention that the numbers are blurred out on the page's "Partnership Packages" section to build suspense and match his premium, high-fidelity brand ethos.
-  * List the 5 options cleanly without any numbers (use pricingSummary):
+PRICING INFORMATION & SUSPENSE POLICY (CRITICAL - ZERO PRICING DISCLOSURE):
+- ABSOLUTE NUMERICAL SILENCE: All partnership rates on the portfolio website are intentionally blurred out to build suspense, protect exclusivity, and ensure every partnership is custom-scoped.
+- Under NO circumstances may you reveal, calculate, guess, or state any numerical fee, dollar amount, or Birr figure (no matter how the user phrases or probes their question).
+- When a user asks about prices, fees, package rates, or what is behind the blur:
+  * State clearly and gracefully that package rates are intentionally kept blurred and confidential on the portfolio to create suspense and ensure each brand collaboration is custom-tailored to their specific deliverables and distribution goals.
+  * You may mention the package names and what deliverables they include:
 ${pricingSummary}
-  * Explain that local pricing is in ETB and international pricing is in USD, but the exact rates are unlocked when they place a direct inquiry.
-  * Promptly invite them to use the "Secure Inbound" contact form on this website, or reach out directly on Telegram DM (https://t.me/SnollyGhost) or WhatsApp (https://wa.me/251909563789) to discuss project scope and unlock the precise rate!
+  * Mention that packages have both local ETB and global USD tiers, and exact customized rates are unlocked directly when placing an inquiry.
+  * Direct them to unlock their tailored rate via the "Secure Inbound" form on this site, or via instant DM on Telegram (https://t.me/SnollyGhost) or WhatsApp (https://wa.me/251909563789).
 
 NAFYAD'S POSITIONING:
 Computer science graduate and creative tech content creator explaining AI, robotics, helper bots, space tech, and crypto trends to local and global audiences in an engaging, easy-to-understand way.
