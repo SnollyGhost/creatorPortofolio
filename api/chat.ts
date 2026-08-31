@@ -50,7 +50,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let reply = "";
     let lastError: any = null;
 
-    // Construct the payload content array cleanly for SDK compatibility
+    // Construct the payload content array cleanly for API compatibility
     const contents = [
       ...(messages || []).map((m: any) => ({
         role: m.role === 'assistant' || m.role === 'model' ? 'model' : 'user',
@@ -59,33 +59,47 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       { role: "user", parts: [{ text: userMessage || '' }] }
     ];
 
-    // Lazy initialization of the GoogleGenAI SDK client
-    const { GoogleGenAI } = await import('@google/genai');
-    const ai = new GoogleGenAI({
-      apiKey: apiKey,
-      httpOptions: {
-        headers: {
-          'User-Agent': 'aistudio-build'
-        }
-      }
-    });
+    const startTime = Date.now();
 
     // Try models with robust failover and timeout to handle high-demand spikes
     for (const model of modelsToTry) {
+      if (Date.now() - startTime > 8000) {
+        console.warn("Approaching Vercel timeout limit. Aborting further model fallbacks to allow graceful error exit.");
+        break;
+      }
+
       try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        
         const response = await withTimeout(
-          ai.models.generateContent({
-            model: model,
-            contents: contents,
-            config: {
-              systemInstruction: systemPrompt,
-              temperature: 0.4
-            }
+          fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              contents: contents,
+              systemInstruction: {
+                role: "user",
+                parts: [{ text: systemPrompt }]
+              },
+              generationConfig: {
+                temperature: 0.4
+              }
+            })
           }),
-          18000 // 18 seconds per attempt
+          7000 // 7 seconds per attempt to stay safely under Vercel's 10s limit
         );
 
-        const textResult = response.text;
+        if (!response.ok) {
+           const errorText = await response.text();
+           throw new Error(`HTTP ${response.status}: ${errorText}`);
+        }
+
+        const data = await response.json();
+        
+        const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        
         if (textResult && textResult.trim().length > 0) {
           reply = textResult;
           break; // Success!
