@@ -151,10 +151,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const todayStr = dateStr || new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
     const systemPrompt = getSystemInstruction(todayStr, age);
 
-    // Active supported production Gemini models
+    // Active supported production Gemini models (Fastest first to prevent timeouts)
     const modelsToTry = [
-      "gemini-3.7-flash",
       "gemini-3.5-flash-lite",
+      "gemini-3.7-flash",
       "gemini-flash-latest",
       "gemini-3.1-flash-lite",
       "gemini-3.1-pro-preview"

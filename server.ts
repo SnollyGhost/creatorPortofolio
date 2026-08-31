@@ -83,10 +83,10 @@ app.post("/api/chat", async (req, res) => {
 
     const systemPrompt = getSystemInstruction(dateStr, currentAge);
 
-    // Active supported production Gemini models
+    // Active supported production Gemini models (Fastest first to prevent timeouts)
     const modelsToTry = [
-      "gemini-3.7-flash",
       "gemini-3.5-flash-lite",
+      "gemini-3.7-flash",
       "gemini-flash-latest",
       "gemini-3.1-flash-lite",
       "gemini-3.1-pro-preview"
@@ -107,8 +107,8 @@ app.post("/api/chat", async (req, res) => {
 
     // Try models with robust failover and timeout to handle high-demand spikes
     for (const model of modelsToTry) {
-      if (Date.now() - startTime > 8000) {
-        console.warn("Approaching Vercel timeout limit. Aborting further model fallbacks to allow graceful error exit.");
+      if (Date.now() - startTime > 15000) {
+        console.warn("Approaching timeout limit. Aborting further model fallbacks to allow graceful error exit.");
         break;
       }
 
@@ -132,7 +132,7 @@ app.post("/api/chat", async (req, res) => {
               }
             })
           }),
-          7000 // 7 seconds per attempt to stay safely under Vercel's 10s limit
+          9000 // 9 seconds per attempt for local server
         );
 
         if (!response.ok) {
