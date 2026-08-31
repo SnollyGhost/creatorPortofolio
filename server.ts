@@ -83,13 +83,13 @@ app.post("/api/chat", async (req, res) => {
 
     const systemPrompt = getSystemInstruction(dateStr, currentAge);
 
-    // Prioritize active, supported production models (gemini-3.6-flash, gemini-3.5-flash-lite, etc.)
+    // Active supported production Gemini models
     const modelsToTry = [
-      "gemini-3.6-flash",
-      "gemini-3.5-flash-lite",
       "gemini-3.7-flash",
+      "gemini-3.5-flash-lite",
+      "gemini-flash-latest",
       "gemini-3.1-flash-lite",
-      "gemini-flash-latest"
+      "gemini-3.1-pro-preview"
     ];
     let reply = "";
     let lastError: any = null;
