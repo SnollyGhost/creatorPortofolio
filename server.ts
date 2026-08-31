@@ -145,7 +145,8 @@ app.post("/api/chat", async (req, res) => {
         const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
         
         if (textResult && textResult.trim().length > 0) {
-          reply = textResult;
+          // Normalize line breaks to at most 1 single blank line, removing excessive vertical gaps
+          reply = textResult.replace(/\r\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
           break; // Success!
         } else {
           throw new Error("Empty response returned from model.");

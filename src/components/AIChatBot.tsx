@@ -203,13 +203,20 @@ export const AIChatBot = () => {
                   className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[85%] p-3 rounded-xl text-sm whitespace-pre-line ${
+                    className={`max-w-[85%] p-3 rounded-xl text-sm leading-relaxed ${
                       m.role === "user"
                         ? "bg-brand-purple text-white rounded-tr-none"
                         : "bg-white/5 text-white/80 border border-white/10 rounded-tl-none"
                     }`}
                   >
-                    {m.content}
+                    {m.content
+                      .split(/\n+/)
+                      .filter((p) => p.trim().length > 0)
+                      .map((paragraph, pIdx, arr) => (
+                        <p key={pIdx} className={pIdx < arr.length - 1 ? "mb-1.5" : ""}>
+                          {paragraph}
+                        </p>
+                      ))}
                   </div>
                 </div>
               ))}
