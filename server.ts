@@ -126,7 +126,7 @@ app.post("/api/chat", async (req, res) => {
               temperature: 0.4
             }
           }),
-          12000 // 12 seconds per attempt
+          18000 // 18 seconds per attempt
         );
 
         const textResult = response.text;

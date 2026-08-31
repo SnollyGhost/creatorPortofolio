@@ -1,5 +1,4 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { GoogleGenAI } from '@google/genai';
 import { getSystemInstruction } from '../src/lib/ai-prompt';
 
 // Helper to race a promise against a timeout
@@ -61,6 +60,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     ];
 
     // Lazy initialization of the GoogleGenAI SDK client
+    const { GoogleGenAI } = await import('@google/genai');
     const ai = new GoogleGenAI({
       apiKey: apiKey,
       httpOptions: {
@@ -82,7 +82,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
               temperature: 0.4
             }
           }),
-          12000 // 12 seconds per attempt
+          18000 // 18 seconds per attempt
         );
 
         const textResult = response.text;
