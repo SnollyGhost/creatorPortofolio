@@ -213,7 +213,7 @@ export const AIChatBot = () => {
                       .split(/\n+/)
                       .filter((p) => p.trim().length > 0)
                       .map((paragraph, pIdx, arr) => (
-                        <p key={pIdx} className={pIdx < arr.length - 1 ? "mb-1.5" : ""}>
+                        <p key={pIdx} className={pIdx < arr.length - 1 ? "mb-3" : ""}>
                           {paragraph}
                         </p>
                       ))}
