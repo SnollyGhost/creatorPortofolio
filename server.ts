@@ -3,27 +3,7 @@ import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
-import React from "react";
-import { renderToStream } from "@react-pdf/renderer";
-import { MediaKitPDFDoc } from "./src/components/MediaKitPDFDoc";
-import { CVPDFDoc } from "./src/components/CVPDFDoc";
 import { getSystemInstruction } from "./src/lib/ai-prompt";
-
-// Helper to convert images to Base64 safely
-const getBase64Image = (assetRelativePath: string) => {
-  try {
-    const fullPath = path.join(process.cwd(), assetRelativePath);
-    if (fs.existsSync(fullPath)) {
-      const bitmap = fs.readFileSync(fullPath);
-      const ext = path.extname(fullPath).toLowerCase().substring(1);
-      const mime = ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' : ext === 'svg' ? 'image/svg+xml' : `image/${ext}`;
-      return `data:${mime};base64,${bitmap.toString('base64')}`;
-    }
-  } catch (error) {
-    console.error(`Error reading ${assetRelativePath}:`, error);
-  }
-  return undefined;
-};
 
 // Try to load .env in development
 if (process.env.NODE_ENV !== "production") {
@@ -181,45 +161,6 @@ app.get("/api/health", (req, res) => {
       isLocal: !process.env.VERCEL
     }
   });
-});
-
-// PDF Portfolio Generation
-app.get("/api/portfolio.pdf", async (req, res) => {
-  try {
-    const images = {
-      creatorImg: getBase64Image('src/assets/creator.webp'),
-      bybit: getBase64Image('src/assets/bybit.webp'),
-      ehudAi: getBase64Image('src/assets/EhudAI.webp'),
-      huluPay: getBase64Image('src/assets/huluPay.webp'),
-      hawi: getBase64Image('src/assets/hawi.webp'),
-      auctionEthiopia: getBase64Image('src/assets/auction_ethiopia.svg'),
-    };
-
-    const stream = await renderToStream(React.createElement(MediaKitPDFDoc, { images }) as any);
-    
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename=NafTech_Creator_Portfolio.pdf');
-    
-    stream.pipe(res);
-  } catch (error: any) {
-    console.error("PDF Generation error:", error);
-    res.status(500).json({ status: "error", message: error.message });
-  }
-});
-
-// Professional CV PDF Generation
-app.get("/api/cv.pdf", async (req, res) => {
-  try {
-    const stream = await renderToStream(React.createElement(CVPDFDoc));
-    
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename=Nafyad_Dechasa_CV.pdf');
-    
-    stream.pipe(res);
-  } catch (error: any) {
-    console.error("CV PDF Generation error:", error);
-    res.status(500).json({ status: "error", message: error.message });
-  }
 });
 
 function escapeHtml(str: string): string {
