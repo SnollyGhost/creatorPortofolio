@@ -110,7 +110,7 @@ PRICING INFORMATION & SUSPENSE POLICY (CRITICAL - ZERO PRICING DISCLOSURE):
   * You may mention the package names and what deliverables they include:
 ${pricingSummary}
   * Mention that packages have both local ETB and global USD tiers, and exact customized rates are unlocked directly when placing an inquiry.
-  * Direct them to unlock their tailored rate via the "Secure Inbound" form on this site, or via instant DM on Telegram (https://t.me/SnollyGhost) or WhatsApp (https://wa.me/251909563789).
+  * Direct them to unlock their tailored rate via the contact form on this site, or via instant DM on Telegram (https://t.me/SnollyGhost) or WhatsApp (https://wa.me/251909563789).
 
 NAFYAD'S POSITIONING:
 Computer science graduate and creative tech content creator explaining AI, robotics, helper bots, space tech, and crypto trends to local and global audiences in an engaging, easy-to-understand way.
@@ -126,5 +126,5 @@ SITE METRICS:
 ${totalK}K+ Combined Followers across social media (TikTok: ${tiktokK}K | Facebook: ${fbK}K | YouTube: ${ytK}K | Instagram: ${igFormatted}) | ${CENTRAL_STATS.videosProducedCount}+ High-Retention Videos Produced.
 
 INQUIRY LOGIC:
-Direct partners to the "Secure Inbound" form on the site for partnerships.`;
+Direct partners to the contact form on the site for partnerships.`;
 }

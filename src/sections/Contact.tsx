@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from "framer-motion";
-import { Mail, MessageSquare, Instagram, Facebook, Youtube, Linkedin, Send, ArrowUpRight, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Mail, MessageSquare, Instagram, Facebook, Youtube, Linkedin, Send, ArrowUpRight, CheckCircle2, AlertCircle, ChevronDown } from 'lucide-react';
 import { BUSINESS_EMAIL, SOCIAL_LINKS, CREATOR_NAME, PACKAGES } from '../lib/data';
 import { db, OperationType, handleFirestoreError } from '../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -191,13 +191,13 @@ export const Contact = ({ selectedPackage }: ContactProps) => {
                 viewport={{ once: true }}
                 className="text-white/40 text-sm md:text-base font-light mb-12 max-w-md"
               >
-                Ready to scale your brand? Select your preferred channel and transmit your brief. 
+                Ready to work together? Send a quick message or choose your preferred chat app below.
               </motion.p>
 
               <div className="space-y-12 mb-16">
                 {[
-                  { icon: TelegramIcon, label: 'Telegram', value: 'Secure Telegram DM', href: 'https://t.me/SnollyGhost' },
-                  { icon: WhatsappIcon, label: 'WhatsApp', value: 'Direct WhatsApp Line', href: 'https://wa.me/251909563789' },
+                  { icon: TelegramIcon, label: 'Telegram', value: 'Chat on Telegram', href: 'https://t.me/SnollyGhost' },
+                  { icon: WhatsappIcon, label: 'WhatsApp', value: 'Chat on WhatsApp', href: 'https://wa.me/251909563789' },
                 ].map((item, idx) => (
                   <motion.a
                     key={item.label}
@@ -262,9 +262,9 @@ export const Contact = ({ selectedPackage }: ContactProps) => {
                   className="absolute inset-0 z-20 bg-black/95 backdrop-blur-xl rounded-[48px] flex flex-col items-center justify-center text-center p-8"
                 >
                   <CheckCircle2 className="w-16 h-16 text-brand-purple mb-6" />
-                  <h4 className="text-2xl font-display font-medium mb-3 text-white">Inbound Transmitted</h4>
+                  <h4 className="text-2xl font-display font-medium mb-3 text-white">Message Sent!</h4>
                   <p className="text-white/60 text-sm max-w-xs mb-8 font-light">
-                    Your brief is secured. Start the conversation directly for a faster response.
+                    Thanks for reaching out! You can also chat directly on your preferred app for a faster reply.
                   </p>
                   
                   <div className="flex flex-col gap-3 w-full max-w-[240px]">
@@ -284,14 +284,14 @@ export const Contact = ({ selectedPackage }: ContactProps) => {
                       }}
                       className="w-full py-3 rounded-xl border border-white/10 text-white/40 hover:text-white transition-colors uppercase tracking-widest text-[9px]"
                     >
-                      Send Another Brief
+                      Send Another Message
                     </button>
                   </div>
                 </motion.div>
               )}
 
               <h3 className="text-2xl font-display font-bold mb-8 flex items-center justify-between">
-                Secure Inbound
+                Send a Message
                 {status === 'submitting' && <div className="w-4 h-4 border-2 border-brand-purple border-t-transparent rounded-full animate-spin" />}
               </h3>
 
@@ -299,7 +299,7 @@ export const Contact = ({ selectedPackage }: ContactProps) => {
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <label className="text-[10px] uppercase font-bold tracking-widest text-white/40 ml-1">Identity</label>
+                      <label className="text-[10px] uppercase font-bold tracking-widest text-white/40 ml-1">Your Name / Brand</label>
                       <input 
                         type="text" 
                         required
@@ -371,30 +371,36 @@ export const Contact = ({ selectedPackage }: ContactProps) => {
                     </div>
                     <div className="space-y-1">
                       <label className="text-[10px] uppercase font-bold tracking-widest text-white/40 ml-1">Project Selection</label>
-                      <select 
-                        required
-                        value={formData.package}
-                        onChange={(e) => setFormData({...formData, package: e.target.value})}
-                        className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/5 focus:border-brand-purple focus:bg-white/10 focus:ring-2 focus:ring-brand-purple/50 focus:outline-none transition-all font-medium text-sm text-white appearance-none cursor-pointer"
-                      >
-                        <option value="" disabled className="bg-black text-white/40">Choose Option</option>
-                        {PACKAGES.map(pkg => (
-                          <option key={pkg.id} value={pkg.name} className="bg-[#050505] text-white">
-                            {pkg.name}
+                      <div className="relative">
+                        <select 
+                          required
+                          value={formData.package}
+                          onChange={(e) => setFormData({...formData, package: e.target.value})}
+                          className="w-full px-6 py-4 pr-10 rounded-xl bg-white/5 border border-white/5 focus:border-brand-purple focus:bg-white/10 focus:ring-2 focus:ring-brand-purple/50 focus:outline-none transition-all font-medium text-sm text-white appearance-none cursor-pointer"
+                        >
+                          <option value="" disabled className="bg-black text-white/40">Choose Package / Videos</option>
+                          {PACKAGES.map(pkg => (
+                            <option key={pkg.id} value={pkg.name} className="bg-[#050505] text-white">
+                              {pkg.name} — {pkg.videoCount}
+                            </option>
+                          ))}
+                          <option value="Custom Campaign" className="bg-[#050505] text-white">
+                            Custom Campaign (Tailored)
                           </option>
-                        ))}
-                      </select>
+                        </select>
+                        <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                      </div>
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] uppercase font-bold tracking-widest text-white/40 ml-1">Brief Description</label>
+                    <label className="text-[10px] uppercase font-bold tracking-widest text-white/40 ml-1">Project Details</label>
                     <textarea 
                       rows={3} 
                       value={formData.message}
                       onChange={(e) => setFormData({...formData, message: e.target.value})}
                       className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/5 focus:border-brand-purple focus:bg-white/10 focus:ring-2 focus:ring-brand-purple/50 focus:outline-none transition-all resize-none font-medium text-sm text-white" 
-                      placeholder="Tell us about the project goal..." 
+                      placeholder="Tell me about your project, goals, or questions..." 
                     />
                   </div>
                 </div>
@@ -410,7 +416,7 @@ export const Contact = ({ selectedPackage }: ContactProps) => {
                   disabled={status === 'submitting'}
                   className="w-full py-5 rounded-xl bg-brand-purple text-white font-bold flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] focus:ring-2 focus:ring-brand-purple/50 focus:outline-none transition-all shadow-xl shadow-brand-purple/20 group uppercase tracking-widest text-xs disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {status === 'submitting' ? 'Encrypting Request...' : 'Transmit Mission Brief'}
+                  {status === 'submitting' ? 'Sending Message...' : 'Send Message'}
                   <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </button>
               </form>

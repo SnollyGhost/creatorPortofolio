@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { GoogleGenAI } from '@google/genai';
 
 // Helper to race a promise against a timeout
 function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
@@ -110,7 +111,7 @@ PRICING INFORMATION & SUSPENSE POLICY (CRITICAL - ZERO PRICING DISCLOSURE):
   * State clearly and gracefully that package rates are intentionally kept blurred and confidential on the portfolio to create suspense and ensure each brand collaboration is custom-tailored to their specific deliverables and distribution goals.
   * You may mention the package names: Single (1 video asset, research, concept, editing, captions) and Mini Campaign (3 video assets, continuous concept, editing, captions).
   * Mention that packages have both local ETB and global USD tiers, and exact customized rates are unlocked directly when placing an inquiry.
-  * Direct them to unlock their tailored rate via the "Secure Inbound" form on this site, or via instant DM on Telegram (https://t.me/SnollyGhost) or WhatsApp (https://wa.me/251909563789).
+  * Direct them to unlock their tailored rate via the contact form on this site, or via instant DM on Telegram (https://t.me/SnollyGhost) or WhatsApp (https://wa.me/251909563789).
 
 NAFYAD'S POSITIONING:
 Computer science graduate and creative tech content creator explaining AI, robotics, helper bots, space tech, and crypto trends to local and global audiences in an engaging, easy-to-understand way.
@@ -123,7 +124,7 @@ SITE METRICS:
 205K+ Combined Followers across social media (TikTok: 94K | Facebook: 52K | YouTube: 49.3K | Instagram: 10,000) | 470+ High-Retention Videos Produced.
 
 INQUIRY LOGIC:
-Direct partners to the "Secure Inbound" form on the site for partnerships.`;
+Direct partners to the contact form on the site for partnerships.`;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -151,17 +152,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const todayStr = dateStr || new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
     const systemPrompt = getSystemInstruction(todayStr, age);
 
-    // Active supported production Gemini models (Fastest first to prevent timeouts)
-    const modelsToTry = [
-      "gemini-3.5-flash-lite",
-      "gemini-3.7-flash",
-      "gemini-flash-latest",
-      "gemini-3.1-flash-lite",
-      "gemini-3.1-pro-preview"
-    ];
-    let reply = "";
-    let lastError: any = null;
-
     // Construct the payload content array cleanly for API compatibility
     const contents = [
       ...(messages || []).map((m: any) => ({
@@ -171,72 +161,112 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       { role: "user", parts: [{ text: userMessage || '' }] }
     ];
 
-    const startTime = Date.now();
+    const wantsStream = req.headers.accept?.includes("text/event-stream") || req.query.stream === "true";
 
-    // Try models with robust failover and timeout to handle high-demand spikes
-    for (const model of modelsToTry) {
-      if (Date.now() - startTime > 8000) {
-        console.warn("Approaching Vercel timeout limit. Aborting further model fallbacks to allow graceful error exit.");
-        break;
+    if (wantsStream) {
+      res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+      res.setHeader("Cache-Control", "no-cache, no-transform");
+      res.setHeader("Connection", "keep-alive");
+      if (typeof (res as any).flushHeaders === 'function') {
+        (res as any).flushHeaders();
       }
 
-      try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-        
-        const response = await withTimeout(
-          fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              contents: contents,
-              systemInstruction: {
-                role: "user",
-                parts: [{ text: systemPrompt }]
-              },
-              generationConfig: {
-                temperature: 0.4
-              }
-            })
-          }),
-          7000 // 7 seconds per attempt to stay safely under Vercel's 10s limit
-        );
+      const ai = new GoogleGenAI({ apiKey });
+      const modelsToTry = [
+        "gemini-3.8-flash",
+        "gemini-3.1-flash-lite",
+        "gemini-flash-latest"
+      ];
 
-        if (!response.ok) {
-           const errorText = await response.text();
-           throw new Error(`HTTP ${response.status}: ${errorText}`);
+      let streamed = false;
+      let lastError: any = null;
+
+      for (const model of modelsToTry) {
+        try {
+          const streamResponse = await ai.models.generateContentStream({
+            model,
+            contents: contents.map(c => ({
+              role: c.role,
+              parts: c.parts.map(p => ({ text: p.text }))
+            })),
+            config: {
+              systemInstruction: systemPrompt,
+              temperature: 0.4
+            }
+          });
+
+          for await (const chunk of streamResponse) {
+            const chunkText = chunk.text;
+            if (chunkText) {
+              res.write(`data: ${JSON.stringify({ text: chunkText })}\n\n`);
+            }
+          }
+          res.write("data: [DONE]\n\n");
+          res.end();
+          streamed = true;
+          break;
+        } catch (err: any) {
+          console.warn(`Model ${model} streaming error:`, err?.message || err);
+          lastError = err;
         }
+      }
 
-        const data = await response.json();
-        
-        const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        
+      if (!streamed) {
+        res.write(`data: ${JSON.stringify({ error: lastError?.message || "All model streaming options failed." })}\n\n`);
+        res.write("data: [DONE]\n\n");
+        res.end();
+      }
+      return;
+    }
+
+    // Non-streaming fallback
+    const ai = new GoogleGenAI({ apiKey });
+    const modelsToTry = [
+      "gemini-3.8-flash",
+      "gemini-3.1-flash-lite",
+      "gemini-flash-latest"
+    ];
+    let reply = "";
+    let lastError: any = null;
+
+    for (const model of modelsToTry) {
+      try {
+        const response = await ai.models.generateContent({
+          model,
+          contents: contents.map(c => ({
+            role: c.role,
+            parts: c.parts.map(p => ({ text: p.text }))
+          })),
+          config: {
+            systemInstruction: systemPrompt,
+            temperature: 0.4
+          }
+        });
+
+        const textResult = response.text;
         if (textResult && textResult.trim().length > 0) {
-          // Normalize line breaks to at most 1 single blank line, removing excessive vertical gaps
           reply = textResult.replace(/\r\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
-          break; // Success!
-        } else {
-          throw new Error("Empty response returned from model.");
+          break;
         }
       } catch (err: any) {
-        console.warn(`Model ${model} unavailable (attempting next fallback):`, err.message);
         lastError = err;
-        // If high demand (503 / 429), brief pause before next model
-        if (err.message?.includes('503') || err.message?.includes('429') || err.message?.includes('UNAVAILABLE')) {
-          await new Promise((resolve) => setTimeout(resolve, 300));
-        }
       }
     }
 
     if (!reply) {
-      throw lastError || new Error("All model fallback options failed.");
+      throw lastError || new Error("All model options failed.");
     }
 
     return res.status(200).json({ status: 'ok', reply });
   } catch (error: any) {
     console.error('SERVERLESS GEMINI ERROR:', error);
-    return res.status(200).json({ status: 'error', message: error.message || 'An unknown error occurred.' });
+    if (!res.headersSent) {
+      return res.status(200).json({ status: 'error', message: error.message || 'An unknown error occurred.' });
+    } else {
+      res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
+      res.write("data: [DONE]\n\n");
+      res.end();
+    }
   }
 }
 

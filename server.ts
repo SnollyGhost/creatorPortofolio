@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
 import { getSystemInstruction } from "./src/lib/ai-prompt";
+import { GoogleGenAI } from "@google/genai";
 
 // Try to load .env in development
 if (process.env.NODE_ENV !== "production") {
@@ -51,7 +52,7 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   });
 }
 
-// Chatbot API Endpoint (Secure server-side proxy)
+// Chatbot API Endpoint (Secure server-side proxy with real-time SSE streaming)
 app.post("/api/chat", async (req, res) => {
   try {
     const { messages, userMessage, currentAge, dateStr } = req.body;
@@ -62,19 +63,6 @@ app.post("/api/chat", async (req, res) => {
     }
 
     const systemPrompt = getSystemInstruction(dateStr, currentAge);
-
-    // Active supported production Gemini models (Fastest first to prevent timeouts)
-    const modelsToTry = [
-      "gemini-3.5-flash-lite",
-      "gemini-3.7-flash",
-      "gemini-flash-latest",
-      "gemini-3.1-flash-lite",
-      "gemini-3.1-pro-preview"
-    ];
-    let reply = "";
-    let lastError: any = null;
-
-    // Construct the payload content array cleanly for API compatibility
     const contents = [
       ...(messages || []).map((m: any) => ({
         role: m.role === 'assistant' || m.role === 'model' ? 'model' : 'user',
@@ -83,60 +71,93 @@ app.post("/api/chat", async (req, res) => {
       { role: "user", parts: [{ text: userMessage || '' }] }
     ];
 
-    const startTime = Date.now();
+    const wantsStream = req.headers.accept?.includes("text/event-stream") || req.query.stream === "true";
 
-    // Try models with robust failover and timeout to handle high-demand spikes
-    for (const model of modelsToTry) {
-      if (Date.now() - startTime > 15000) {
-        console.warn("Approaching timeout limit. Aborting further model fallbacks to allow graceful error exit.");
-        break;
+    if (wantsStream) {
+      res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+      res.setHeader("Cache-Control", "no-cache, no-transform");
+      res.setHeader("Connection", "keep-alive");
+      res.flushHeaders?.();
+
+      const ai = new GoogleGenAI({ apiKey });
+      const modelsToTry = [
+        "gemini-3.8-flash",
+        "gemini-3.1-flash-lite",
+        "gemini-flash-latest"
+      ];
+
+      let streamed = false;
+      let lastError: any = null;
+
+      for (const model of modelsToTry) {
+        try {
+          const streamResponse = await ai.models.generateContentStream({
+            model,
+            contents: contents.map(c => ({
+              role: c.role,
+              parts: c.parts.map(p => ({ text: p.text }))
+            })),
+            config: {
+              systemInstruction: systemPrompt,
+              temperature: 0.4
+            }
+          });
+
+          for await (const chunk of streamResponse) {
+            const chunkText = chunk.text;
+            if (chunkText) {
+              res.write(`data: ${JSON.stringify({ text: chunkText })}\n\n`);
+            }
+          }
+          res.write("data: [DONE]\n\n");
+          res.end();
+          streamed = true;
+          break;
+        } catch (err: any) {
+          console.warn(`Model ${model} streaming error:`, err?.message || err);
+          lastError = err;
+        }
       }
 
+      if (!streamed) {
+        res.write(`data: ${JSON.stringify({ error: lastError?.message || "All model streaming options failed." })}\n\n`);
+        res.write("data: [DONE]\n\n");
+        res.end();
+      }
+      return;
+    }
+
+    // Non-streaming fallback
+    const ai = new GoogleGenAI({ apiKey });
+    const modelsToTry = [
+      "gemini-3.8-flash",
+      "gemini-3.1-flash-lite",
+      "gemini-flash-latest"
+    ];
+    let reply = "";
+    let lastError: any = null;
+
+    for (const model of modelsToTry) {
       try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-        
-        const response = await withTimeout(
-          fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              contents: contents,
-              systemInstruction: {
-                role: "user",
-                parts: [{ text: systemPrompt }]
-              },
-              generationConfig: {
-                temperature: 0.4
-              }
-            })
-          }),
-          9000 // 9 seconds per attempt for local server
-        );
+        const response = await ai.models.generateContent({
+          model,
+          contents: contents.map(c => ({
+            role: c.role,
+            parts: c.parts.map(p => ({ text: p.text }))
+          })),
+          config: {
+            systemInstruction: systemPrompt,
+            temperature: 0.4
+          }
+        });
 
-        if (!response.ok) {
-           const errorText = await response.text();
-           throw new Error(`HTTP ${response.status}: ${errorText}`);
-        }
-
-        const data = await response.json();
-        
-        const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        
+        const textResult = response.text;
         if (textResult && textResult.trim().length > 0) {
-          // Normalize line breaks to at most 1 single blank line, removing excessive vertical gaps
           reply = textResult.replace(/\r\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
-          break; // Success!
-        } else {
-          throw new Error("Empty response returned from model.");
+          break;
         }
       } catch (err: any) {
-        console.warn(`Model ${model} unavailable (attempting next fallback):`, err.message);
         lastError = err;
-        if (err.message?.includes('503') || err.message?.includes('429') || err.message?.includes('UNAVAILABLE')) {
-          await new Promise((resolve) => setTimeout(resolve, 300));
-        }
       }
     }
 
@@ -147,7 +168,13 @@ app.post("/api/chat", async (req, res) => {
     return res.json({ status: "ok", reply });
   } catch (error: any) {
     console.error("Gemini API local server error:", error);
-    return res.status(200).json({ status: "error", message: error.message || 'An unknown error occurred.' });
+    if (!res.headersSent) {
+      return res.status(200).json({ status: "error", message: error.message || 'An unknown error occurred.' });
+    } else {
+      res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
+      res.write("data: [DONE]\n\n");
+      res.end();
+    }
   }
 });
 

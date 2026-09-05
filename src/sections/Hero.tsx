@@ -83,13 +83,13 @@ const StatItem = ({ value, label }: { value: string, label: string }) => {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="flex flex-col items-center justify-center group p-6 rounded-3xl bg-white/[0.01] border border-white/[0.03] hover:border-white/10 hover:bg-white/[0.03] transition-all duration-500 md:backdrop-blur-sm shadow-xl text-center w-full"
+      className="flex flex-col items-center justify-center group p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/[0.01] border border-white/[0.03] hover:border-white/10 hover:bg-white/[0.03] transition-all duration-500 md:backdrop-blur-sm shadow-xl text-center w-full"
     >
-      <div className="text-4xl md:text-5xl font-display font-semibold text-white tracking-tighter group-hover:text-brand-purple transition-all duration-300 flex items-center justify-center gap-1">
+      <div className="text-2xl sm:text-4xl md:text-5xl font-display font-semibold text-white tracking-tighter group-hover:text-brand-purple transition-all duration-300 flex items-center justify-center gap-0.5 sm:gap-1">
         <span>{displayValue}{isK ? 'K' : ''}</span>
-        <span className="text-brand-purple text-3xl font-semibold">+</span>
+        <span className="text-brand-purple text-xl sm:text-3xl font-semibold">+</span>
       </div>
-      <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/40 group-hover:text-white/70 transition-colors mt-2 text-center leading-normal select-none">
+      <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.12em] sm:tracking-[0.25em] text-white/40 group-hover:text-white/70 transition-colors mt-1.5 sm:mt-2 text-center leading-tight select-none">
         {label}
       </div>
     </motion.div>
@@ -125,7 +125,7 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 pb-16">
+    <section className="relative min-h-screen w-full max-w-full flex flex-col items-center justify-center overflow-hidden pt-24 sm:pt-28 pb-14 sm:pb-16 px-2 sm:px-0">
       
       {/* Interactive Cursor Glow (Spline / Magnific dynamic spotlight style) */}
       <motion.div
@@ -206,38 +206,42 @@ export const Hero = () => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 max-w-7xl mx-auto px-6 text-center"
+        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 text-center"
       >
         <motion.div
           variants={itemVariants}
-          className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass border border-white/[0.07] mb-8 bg-white/[0.02] hover:bg-white/[0.06] transition-all duration-300"
+          className="inline-flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass border border-white/[0.07] mb-6 sm:mb-8 bg-white/[0.02] hover:bg-white/[0.06] transition-all duration-300 max-w-full"
         >
-          <Sparkles className="w-3.5 h-3.5 text-brand-purple animate-pulse" />
-          <span className="text-[10px] font-bold uppercase tracking-[0.35em] text-white/80">Nafyad • Official Creator Portfolio</span>
+          <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-purple animate-pulse flex-shrink-0" />
+          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.16em] sm:tracking-[0.35em] text-white/80 truncate">
+            Nafyad • Official Creator Portfolio
+          </span>
         </motion.div>
 
         <motion.h1
           variants={itemVariants}
-          className="text-6xl md:text-8xl lg:text-[9.5rem] font-display font-light leading-[0.82] tracking-tighter mb-10 select-none"
+          className="text-[2.5rem] xs:text-5xl sm:text-7xl md:text-8xl lg:text-[9.5rem] font-display font-light leading-[0.92] sm:leading-[0.82] tracking-tighter mb-8 sm:mb-10 select-none w-full max-w-full"
         >
           <span className="text-gradient block">TURNING</span>
           <span className="italic font-serif text-[#ECECEC] block my-1">CONTENT</span>
-          <span className="text-brand-gradient font-bold drop-shadow-[0_0_55px_rgba(147,51,234,0.45)] block uppercase">INTO ATTENTION.</span>
+          <span className="text-brand-gradient font-bold drop-shadow-[0_0_55px_rgba(147,51,234,0.45)] block uppercase tracking-tight sm:tracking-tighter">
+            INTO ATTENTION.
+          </span>
         </motion.h1>
 
         {/* Elevated Stats Display Grid (Aligned with high-end landing elements) */}
         <motion.div 
           variants={itemVariants}
-          className="grid grid-cols-2 gap-4 max-w-lg mx-auto mb-6"
+          className="grid grid-cols-2 gap-3 sm:gap-4 max-w-lg mx-auto mb-6 w-full px-1 sm:px-0"
         >
           <StatItem value={STATS.totalFollowers} label="Global Content Community" />
           <StatItem value={STATS.produced} label="High-Retention Videos Produced" />
         </motion.div>
 
-        {/* Prominent Quick-Connect Social Channels (TikTok, Instagram, YouTube, Facebook) - Single Row */}
+        {/* Prominent Quick-Connect Social Channels (TikTok, Instagram, YouTube, Facebook) */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-nowrap items-center justify-center gap-1.5 sm:gap-3 max-w-3xl mx-auto mb-12 overflow-x-auto no-scrollbar py-1"
+          className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-3xl mx-auto mb-8 sm:mb-12 px-1 py-1"
         >
           {SOCIAL_HERO_LINKS.map((social) => (
             <a
@@ -246,30 +250,30 @@ export const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Connect with Nafyad on ${social.name} (${social.followers})`}
-              className={`group relative inline-flex items-center gap-1.5 sm:gap-2.5 px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-full bg-white/[0.02] border border-white/[0.08] backdrop-blur-md transition-all duration-300 whitespace-nowrap flex-shrink-0 ${social.hoverClass}`}
+              className={`group relative inline-flex items-center justify-center gap-1.5 sm:gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full bg-white/[0.02] border border-white/[0.08] backdrop-blur-md transition-all duration-300 whitespace-nowrap ${social.hoverClass}`}
             >
               <social.icon className={`w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 transition-colors ${social.iconColor}`} />
               <span className="text-[11px] sm:text-xs font-semibold text-white/90 group-hover:text-white transition-colors">{social.name}</span>
-              <span className="text-[9px] sm:text-[10px] font-mono px-1 sm:px-1.5 py-0.5 rounded-md bg-white/[0.04] text-white/40 group-hover:text-white/80 group-hover:bg-white/[0.1] transition-colors">{social.followers}</span>
+              <span className="text-[9px] sm:text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-white/[0.04] text-white/40 group-hover:text-white/80 group-hover:bg-white/[0.1] transition-colors">{social.followers}</span>
             </a>
           ))}
         </motion.div>
 
         <motion.div
           variants={itemVariants}
-          className="flex flex-col sm:flex-row items-center justify-center gap-6"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full"
         >
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-xl">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center w-full max-w-xl px-2 sm:px-0">
             <a
               href="#packages"
-              className="group relative px-10 py-5 bg-white text-black font-bold text-xs uppercase tracking-[0.2em] rounded-xl hover:bg-brand-purple hover:text-white transition-all duration-500 overflow-hidden shadow-2xl shadow-white/5 text-center w-full sm:w-auto flex items-center justify-center gap-2 border border-white/20"
+              className="group relative px-6 sm:px-10 py-4 sm:py-5 bg-white text-black font-bold text-xs uppercase tracking-[0.18em] sm:tracking-[0.2em] rounded-xl hover:bg-brand-purple hover:text-white transition-all duration-500 overflow-hidden shadow-2xl shadow-white/5 text-center w-full sm:w-auto flex items-center justify-center gap-2 border border-white/20"
             >
               <span>Start Collaboration</span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </a>
             <a
               href="#work"
-              className="px-10 py-5 border border-white/10 text-white/70 font-bold text-xs uppercase tracking-[0.2em] rounded-xl hover:border-white hover:text-white hover:bg-white/[0.03] transition-all duration-500 text-center w-full sm:w-auto animate-pulse hover:animate-none flex items-center justify-center gap-1.5"
+              className="px-6 sm:px-10 py-4 sm:py-5 border border-white/10 text-white/70 font-bold text-xs uppercase tracking-[0.18em] sm:tracking-[0.2em] rounded-xl hover:border-white hover:text-white hover:bg-white/[0.03] transition-all duration-500 text-center w-full sm:w-auto animate-pulse hover:animate-none flex items-center justify-center gap-1.5"
             >
               <span>Explore Works</span>
             </a>

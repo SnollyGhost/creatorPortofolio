@@ -145,6 +145,7 @@ Partnership Packages:
 export const PACKAGES: {
   id: string;
   name: string;
+  videoCount: string;
   price: string;
   priceValue: number;
   usdPrice: number;
@@ -161,6 +162,7 @@ export const PACKAGES: {
   {
     id: 'single',
     name: 'Single',
+    videoCount: '1 Video',
     price: '30K ETB',
     priceValue: 30000,
     usdPrice: 300,
@@ -178,6 +180,7 @@ export const PACKAGES: {
   {
     id: 'campaign-3',
     name: 'Mini Campaign',
+    videoCount: '3 Videos',
     price: '75K ETB',
     priceValue: 75000,
     usdPrice: 750,
@@ -196,6 +199,7 @@ export const PACKAGES: {
   {
     id: 'campaign-5',
     name: 'Standard Campaign',
+    videoCount: '5 Videos',
     price: '120K ETB',
     priceValue: 120000,
     usdPrice: 1200,
@@ -215,6 +219,7 @@ export const PACKAGES: {
   {
     id: 'premium',
     name: 'Premium',
+    videoCount: '8 Videos',
     price: '185K ETB',
     priceValue: 185000,
     usdPrice: 1850,
@@ -233,6 +238,7 @@ export const PACKAGES: {
   {
     id: 'premium-plus',
     name: 'Premium Plus',
+    videoCount: '100 Videos',
     price: '2.1M ETB',
     priceValue: 2100000,
     usdPrice: 21000,
