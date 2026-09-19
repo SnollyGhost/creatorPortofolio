@@ -168,7 +168,11 @@ export const AIChatBot = () => {
       
       let userFriendlyErrorMessage = "AI is briefly offline for maintenance. Direct inquiries are still active.";
       if (isConfigError) {
-        userFriendlyErrorMessage = `Configuration Error: ${errText}. Please make sure you have added GEMINI_API_KEY as an Environment Variable.`;
+        if (errText.includes("API_KEY_INVALID") || errText.includes("API key not valid")) {
+          userFriendlyErrorMessage = "Gemini API Key Error: The provided key is invalid. Please ensure you are using a valid Gemini API key (starts with 'AIzaSy...') from Google AI Studio (https://aistudio.google.com/app/apikey) and add it to your Environment Variables as GEMINI_API_KEY.";
+        } else {
+          userFriendlyErrorMessage = "Configuration Notice: GEMINI_API_KEY is not set or valid. Please ensure GEMINI_API_KEY is added to your Environment Variables.";
+        }
       }
 
       setMessages((prev) => {

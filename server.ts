@@ -120,7 +120,11 @@ app.post("/api/chat", async (req, res) => {
       }
 
       if (!streamed) {
-        res.write(`data: ${JSON.stringify({ error: lastError?.message || "All model streaming options failed." })}\n\n`);
+        const rawMsg = lastError?.message || "All model streaming options failed.";
+        const cleanMsg = (rawMsg.includes("API_KEY_INVALID") || rawMsg.includes("API key not valid"))
+          ? "API key not valid. Please pass a valid Gemini API key (starts with 'AIzaSy...')."
+          : rawMsg;
+        res.write(`data: ${JSON.stringify({ error: cleanMsg })}\n\n`);
         res.write("data: [DONE]\n\n");
         res.end();
       }

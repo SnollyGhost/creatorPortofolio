@@ -13,7 +13,7 @@ const SOCIAL_HERO_LINKS = [
   {
     name: 'TikTok',
     handle: '@nafyad_',
-    followers: '94K',
+    followers: '95.5K',
     href: SOCIAL_LINKS.tiktok,
     icon: TiktokIcon,
     hoverClass: 'hover:border-cyan-400/40 hover:text-cyan-300 hover:shadow-[0_0_25px_rgba(34,211,238,0.18)] hover:bg-cyan-500/[0.05]',
@@ -31,7 +31,7 @@ const SOCIAL_HERO_LINKS = [
   {
     name: 'YouTube',
     handle: '@NafTech00',
-    followers: '49.3K',
+    followers: '49.6K',
     href: SOCIAL_LINKS.youtube,
     icon: Youtube,
     hoverClass: 'hover:border-red-500/40 hover:text-red-300 hover:shadow-[0_0_25px_rgba(239,68,68,0.18)] hover:bg-red-500/[0.05]',

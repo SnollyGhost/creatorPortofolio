@@ -12,11 +12,15 @@ export const SOCIAL_LINKS = {
 
 export const CENTRAL_STATS = {
   tiktok: {
-    total: 94000,
-    gained: 48012, // +48K gained over 1 year
-    changeLabel: "+48K Followers Gained",
+    total: 95500,
+    gained: 49512, // +49.5K gained over 1 year
+    changeLabel: "+49.5K Followers Gained",
     label: "TikTok Followers",
-    monthlyViews: "1M views",
+    yearlyViews: "12.7M views",
+    profileViews: "110K profile views",
+    totalLikes: "870.2K Likes",
+    totalComments: "22.4K comments",
+    monthlyViews: "1M+ views",
   },
   meta: {
     total: 62000, // Facebook 52K + Instagram 10K
@@ -28,17 +32,17 @@ export const CENTRAL_STATS = {
     instagramViews: "500K views",
   },
   youtube: {
-    total: 49300,
-    gained: 9860, // +9.8K gained over 1 year
-    changeLabel: "+9.8K Subscribers Gained",
+    total: 49600,
+    gained: 10160, // +10.1K gained over 1 year
+    changeLabel: "+10.1K Subscribers Gained",
     label: "YouTube Subscribers",
   },
-  videosProducedCount: 470,
+  videosProducedCount: 480,
   brandPartnershipsCount: 9,
 };
 
 export const STATS = {
-  totalFollowers: "205K",
+  totalFollowers: "207K",
   produced: `${CENTRAL_STATS.videosProducedCount}+`,
 };
 
@@ -66,12 +70,15 @@ Channel Data & Timeline:
 - Official TikTok Handle: @nafyad_ (NafTech).
 - Launch Date: NafTech officially launched in September 2024.
 - Social Presence & Distribution:
-  * Over 205K+ combined followers across fast-growing social media platforms.
-  * TikTok: 94K followers (@nafyad_).
+  * Over 207K+ combined followers across fast-growing social media platforms.
+  * TikTok: 95.5K followers (@nafyad_).
   * Facebook: 52K followers.
-  * YouTube: 49.3K subscribers (primarily short-form content).
+  * YouTube: 49.6K subscribers (@NafTech00).
   * Instagram: 10K followers.
-- Successfully produced 470+ high-retention video assets to date.
+- Successfully produced 480+ high-retention video assets to date.
+
+Awards, Honors & Global Contests:
+- Telegram Digital Freedom Contest Winner (Summer 2026): Winner in the official Telegram Digital Freedom Contest launched directly by Telegram founder Pavel Durov from an international $200,000 prize pool. The competition challenged global creators to highlight privacy, decentralized communication, censorship resistance, and fighting tech monopoly control. Nafyad submitted a ~3-minute short-form video that masterfully blended Ethiopian rural culture and traditional life with digital freedom concepts, earning a winning spot announced in early September 2026. (Specific individual award amount and exact ranking are kept private).
 
 Ecosystem Network & Industry Collaborations:
 - Ehud AI Talk: Maintains an active collaboration with Abenezer Alemayehu (Abeni), the host of Ehud AI Talk, focusing on co-production planning and strategic script engineering.

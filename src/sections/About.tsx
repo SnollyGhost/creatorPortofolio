@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from "framer-motion";
+import { Trophy, ExternalLink } from 'lucide-react';
 import { CREATOR_NAME, NAFYAD_INFO, STATS, CENTRAL_STATS } from '../lib/data';
 import creatorImg from '../assets/creator.webp';
 
@@ -90,6 +91,34 @@ export const About = () => {
                    <div className="text-[10px] uppercase tracking-widest text-white/30 font-bold">Brand Partnerships</div>
                 </div>
               </motion.div>
+
+              {/* Telegram Digital Freedom Contest Milestone */}
+              <motion.a
+                href="https://www.instagram.com/p/DaQgMMBNVQN/"
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="mt-6 p-3.5 sm:p-4 rounded-2xl bg-white/[0.02] border border-white/[0.08] flex items-center gap-3.5 group hover:border-amber-400/40 hover:bg-white/[0.04] transition-all duration-300 cursor-pointer text-left"
+                aria-label="View Telegram Digital Freedom Contest Winning Video on Instagram"
+              >
+                <div className="w-10 h-10 rounded-xl bg-amber-400/10 border border-amber-400/25 flex items-center justify-center flex-shrink-0 text-amber-400 group-hover:scale-105 group-hover:bg-amber-400/20 transition-all duration-300">
+                  <Trophy className="w-5 h-5" />
+                </div>
+                <div className="flex-1 min-w-0 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-xs sm:text-sm font-semibold text-white group-hover:text-amber-300 transition-colors">
+                      Telegram Digital Freedom Contest Winner
+                    </span>
+                    <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-white/[0.05] text-amber-300 border border-amber-400/30">
+                      Official $200K Pool
+                    </span>
+                  </div>
+                  <ExternalLink className="w-4 h-4 text-white/30 group-hover:text-amber-300 transition-colors flex-shrink-0" />
+                </div>
+              </motion.a>
 
 
             </div>

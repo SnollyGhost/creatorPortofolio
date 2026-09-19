@@ -204,6 +204,22 @@ export const AnalyticsDashboard = () => {
               </span>
             </div>
           </div>
+
+          {/* Quick Metrics Breakdown Strip */}
+          {activeMetric.breakdown && activeMetric.breakdown.length > 0 && (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+              {activeMetric.breakdown.map((item) => (
+                <div 
+                  key={item.label}
+                  className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3 flex flex-col"
+                >
+                  <span className="text-[10px] uppercase tracking-wider text-white/40 font-mono font-medium">{item.label}</span>
+                  <span className="text-lg sm:text-xl font-display font-semibold text-white mt-0.5">{item.value}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
           <div className="h-[400px] w-full relative">
             <ResponsiveContainer key={activeMetricIdx} width="100%" height={400}>
               <AreaChart data={activeChartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
