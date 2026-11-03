@@ -21,7 +21,7 @@ import hulugramLogo from '../assets/hulugram.svg';
 // Import new custom covers
 import ehudAiCover from '../assets/covers/ehud-ai.webp';
 import v22OspreyCover from '../assets/covers/V22-Osprey.webp';
-import lazarusCover from '../assets/covers/lazarus.webp';
+import bestAiToolsCover from '../assets/covers/Best_AI_Tools.jpg';
 import telegramCover from '../assets/covers/telegram-premium.webp';
 import satelliteCover from '../assets/covers/satellite.webp';
 import astronautCover from '../assets/covers/astronaut.webp';
@@ -139,13 +139,13 @@ export const VIDEOS: Video[] = [
   },
   {
     id: 'tech-3',
-    title: "Lazarus vs The World's Banks💰",
+    title: '🤖 Best AI Tools for 2026',
     platform: 'instagram',
     category: 'tech',
     views: '',
-    thumbnail: lazarusCover,
-    url: 'https://www.instagram.com/reels/DVVROatjZ6X/',
-    tags: ['Banking', 'Lazarus'],
+    thumbnail: bestAiToolsCover,
+    url: 'https://www.instagram.com/p/DeUlwNvm2LM/',
+    tags: ['AI Tools', '2026', 'Innovation'],
   },
   {
     id: 'tech-4',
@@ -226,7 +226,7 @@ export const METRICS: Metric[] = [
       { name: 'May 26', value: 89000 },
       { name: 'Jun 26', value: 91500 },
       { name: 'Jul 26', value: 94000 },
-      { name: 'Aug 26', value: 94800 },
+      { name: 'Aug 26', value: 97500 },
       { name: 'Sep 26', value: CENTRAL_STATS.tiktok.total },
     ],
   },
@@ -238,8 +238,8 @@ export const METRICS: Metric[] = [
     period: '1 Year',
     platformDetails: `Combined Meta audience: ${(CENTRAL_STATS.meta.facebook / 1000).toFixed(1).replace(/\.0$/, '')}K Facebook followers + ${(CENTRAL_STATS.meta.instagram / 1000).toFixed(1).replace(/\.0$/, '')}K Instagram followers.`,
     breakdown: [
-      { label: 'Facebook', value: '52K' },
-      { label: 'Instagram', value: '10K' },
+      { label: 'Facebook', value: '53K' },
+      { label: 'Instagram', value: '11K' },
       { label: 'Reels Views', value: '500K+' },
       { label: 'High Intent', value: 'Active' },
     ],
@@ -253,8 +253,8 @@ export const METRICS: Metric[] = [
       { name: 'Apr 26', value: 58500 },
       { name: 'May 26', value: 60100 },
       { name: 'Jun 26', value: 61200 },
-      { name: 'Jul 26', value: 61600 },
-      { name: 'Aug 26', value: 61850 },
+      { name: 'Jul 26', value: 62500 },
+      { name: 'Aug 26', value: 63200 },
       { name: 'Sep 26', value: CENTRAL_STATS.meta.total },
     ],
   },
@@ -266,7 +266,7 @@ export const METRICS: Metric[] = [
     period: '1 Year',
     platformDetails: `${CENTRAL_STATS.youtube.total.toLocaleString()} total YouTube subscribers.`,
     breakdown: [
-      { label: 'Subscribers', value: '49.6K' },
+      { label: 'Subscribers', value: '50K' },
       { label: 'Format', value: 'Shorts & Tech' },
       { label: 'Focus', value: 'AI & Software' },
       { label: 'Handle', value: '@NafTech00' },
@@ -281,8 +281,8 @@ export const METRICS: Metric[] = [
       { name: 'Apr 26', value: 49195 },
       { name: 'May 26', value: 49238 },
       { name: 'Jun 26', value: 49250 },
-      { name: 'Jul 26', value: 49300 },
-      { name: 'Aug 26', value: 49450 },
+      { name: 'Jul 26', value: 49500 },
+      { name: 'Aug 26', value: 49800 },
       { name: 'Sep 26', value: CENTRAL_STATS.youtube.total },
     ],
   },
@@ -310,14 +310,14 @@ export const TESTIMONIALS = [
   },
   {
     id: 't2',
-    name: 'Daniel S.',
+    name: 'Abenezer Alemayehu',
     role: 'Co-founder, Ehud AI',
     text: "Working with NafTech changed how we perceive content. The retention rates on our campaign were double what we saw with traditional marketing agencies.",
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150',
   },
   {
     id: 't3',
-    name: 'Sarah K.',
+    name: 'Netsanet',
     role: 'Marketing Director, HuluPay',
     text: 'Sharp, technical, and aesthetically superior. Nafyad understands the intersection of finance and technology like no other creator in the region.',
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150',

@@ -36,10 +36,10 @@ export const FeaturedVideos = () => {
       return `https://www.tiktok.com/embed/v2/${lastPart}`;
     }
     if (platform === 'instagram') {
-      // Handle both /reel/ and /reels/ paths
-      const match = url.match(/\/(?:reel|reels)\/([^/?#]+)/);
+      // Handle /p/, /reel/, and /reels/ paths
+      const match = url.match(/\/(?:p|reel|reels)\/([^/?#]+)/);
       if (match && match[1]) {
-        return `https://www.instagram.com/reel/${match[1]}/embed`;
+        return `https://www.instagram.com/p/${match[1]}/embed`;
       }
       return url;
     }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView, Variants } from "framer-motion";
 import { Instagram, Youtube, Facebook, ArrowUpRight, Sparkles, Box } from 'lucide-react';
-import { SOCIAL_LINKS, CREATOR_NAME, STATS } from '../lib/data';
+import { SOCIAL_LINKS, CREATOR_NAME, STATS, CENTRAL_STATS } from '../lib/data';
 
 const TiktokIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -13,7 +13,7 @@ const SOCIAL_HERO_LINKS = [
   {
     name: 'TikTok',
     handle: '@nafyad_',
-    followers: '95.5K',
+    followers: `${Math.round(CENTRAL_STATS.tiktok.total / 1000)}K`,
     href: SOCIAL_LINKS.tiktok,
     icon: TiktokIcon,
     hoverClass: 'hover:border-cyan-400/40 hover:text-cyan-300 hover:shadow-[0_0_25px_rgba(34,211,238,0.18)] hover:bg-cyan-500/[0.05]',
@@ -22,7 +22,7 @@ const SOCIAL_HERO_LINKS = [
   {
     name: 'Instagram',
     handle: '@n.a.f.y.a.d',
-    followers: '10K',
+    followers: `${Math.round(CENTRAL_STATS.meta.instagram / 1000)}K`,
     href: SOCIAL_LINKS.instagram,
     icon: Instagram,
     hoverClass: 'hover:border-pink-500/40 hover:text-pink-300 hover:shadow-[0_0_25px_rgba(244,114,182,0.18)] hover:bg-pink-500/[0.05]',
@@ -31,7 +31,7 @@ const SOCIAL_HERO_LINKS = [
   {
     name: 'YouTube',
     handle: '@NafTech00',
-    followers: '49.6K',
+    followers: `${Math.round(CENTRAL_STATS.youtube.total / 1000)}K`,
     href: SOCIAL_LINKS.youtube,
     icon: Youtube,
     hoverClass: 'hover:border-red-500/40 hover:text-red-300 hover:shadow-[0_0_25px_rgba(239,68,68,0.18)] hover:bg-red-500/[0.05]',
@@ -40,7 +40,7 @@ const SOCIAL_HERO_LINKS = [
   {
     name: 'Facebook',
     handle: 'Nafyad',
-    followers: '52K',
+    followers: `${Math.round(CENTRAL_STATS.meta.facebook / 1000)}K`,
     href: SOCIAL_LINKS.facebook,
     icon: Facebook,
     hoverClass: 'hover:border-blue-500/40 hover:text-blue-300 hover:shadow-[0_0_25px_rgba(59,130,246,0.18)] hover:bg-blue-500/[0.05]',
@@ -235,7 +235,7 @@ export const Hero = () => {
           className="grid grid-cols-2 gap-3 sm:gap-4 max-w-lg mx-auto mb-6 w-full px-1 sm:px-0"
         >
           <StatItem value={STATS.totalFollowers} label="Global Content Community" />
-          <StatItem value={STATS.produced} label="High-Retention Videos Produced" />
+          <StatItem value={STATS.produced} label="VIDEOS CREATED" />
         </motion.div>
 
         {/* Prominent Quick-Connect Social Channels (TikTok, Instagram, YouTube, Facebook) */}
