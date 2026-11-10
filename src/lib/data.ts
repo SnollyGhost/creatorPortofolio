@@ -17,6 +17,7 @@ import auctionEthiopiaLogo from '../assets/auction_ethiopia.svg';
 import arifGetLogo from '../assets/arifget.svg';
 import linkPayLogo from '../assets/linkpay.webp';
 import hulugramLogo from '../assets/hulugram.svg';
+import nasaSpaceAppsLogo from '../assets/nasa_space_apps.png';
 
 // Import new custom covers
 import ehudAiCover from '../assets/covers/ehud-ai.webp';
@@ -207,10 +208,9 @@ export const METRICS: Metric[] = [
     value: `${(CENTRAL_STATS.tiktok.total / 1000).toFixed(1).replace(/\.0$/, '')}K Followers`,
     change: CENTRAL_STATS.tiktok.changeLabel,
     isPositive: true,
-    period: '1 Year',
-    platformDetails: `${CENTRAL_STATS.tiktok.total.toLocaleString()} total TikTok followers • 12.7M 365-day views • 870.2K likes.`,
+    platformDetails: `${CENTRAL_STATS.tiktok.total.toLocaleString()} total TikTok followers • 12.7M views • 870.2K likes.`,
     breakdown: [
-      { label: '365-Day Views', value: '12.7M' },
+      { label: 'Total Views', value: '12.7M' },
       { label: 'Total Likes', value: '870.2K' },
       { label: 'Profile Views', value: '110K' },
       { label: 'Comments', value: '22.4K' },
@@ -235,7 +235,6 @@ export const METRICS: Metric[] = [
     value: `${(CENTRAL_STATS.meta.total / 1000).toFixed(1).replace(/\.0$/, '')}K Followers`,
     change: CENTRAL_STATS.meta.changeLabel,
     isPositive: true,
-    period: '1 Year',
     platformDetails: `Combined Meta audience: ${(CENTRAL_STATS.meta.facebook / 1000).toFixed(1).replace(/\.0$/, '')}K Facebook followers + ${(CENTRAL_STATS.meta.instagram / 1000).toFixed(1).replace(/\.0$/, '')}K Instagram followers.`,
     breakdown: [
       { label: 'Facebook', value: '53K' },
@@ -263,7 +262,6 @@ export const METRICS: Metric[] = [
     value: `${(CENTRAL_STATS.youtube.total / 1000).toFixed(1).replace(/\.0$/, '')}K Subscribers`,
     change: CENTRAL_STATS.youtube.changeLabel,
     isPositive: true,
-    period: '1 Year',
     platformDetails: `${CENTRAL_STATS.youtube.total.toLocaleString()} total YouTube subscribers.`,
     breakdown: [
       { label: 'Subscribers', value: '50K' },
@@ -291,6 +289,7 @@ export const METRICS: Metric[] = [
 export const BRANDS = [
   { name: 'ArifGet', logo: arifGetLogo },
   { name: 'Bybit', logo: bybitLogo },
+  { name: 'NASA Space Apps', logo: nasaSpaceAppsLogo },
   { name: 'Ehud AI', logo: ehudAiLogo },
   { name: 'Auction Ethiopia', logo: auctionEthiopiaLogo },
   { name: 'Hawi Solutions', logo: hawiLogo },

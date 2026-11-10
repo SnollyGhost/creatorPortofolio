@@ -73,7 +73,7 @@ export const AnalyticsDashboard = () => {
               className="text-brand-purple font-display font-medium tracking-widest uppercase text-[11px] mb-4 flex items-center gap-2"
             >
               <Calendar className="w-3.5 h-3.5" />
-              1-Year Performance Analytics
+              Audience Performance Analytics
             </motion.div>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -153,7 +153,6 @@ export const AnalyticsDashboard = () => {
               <div className="flex flex-col space-y-1 mb-6">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] uppercase tracking-widest text-white/40 font-bold">{metric.label}</span>
-                  <span className="text-[9px] px-2 py-0.5 rounded-full bg-white/10 text-white/70 font-mono">1 Year</span>
                 </div>
                 <div className={cn(
                   "text-4xl font-light tracking-tighter transition-colors mt-2",
@@ -192,10 +191,10 @@ export const AnalyticsDashboard = () => {
               <div className="flex items-center gap-3">
                 <h3 className="text-2xl font-display font-bold mb-1">{activeMetric.label}</h3>
                 <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-brand-purple/20 text-brand-purple border border-brand-purple/30">
-                  {activeMetric.period || '1-Year Breakdown'}
+                  {activeMetric.period || 'Audience Breakdown'}
                 </span>
               </div>
-              <p className="text-white/50 text-sm mt-1">{activeMetric.platformDetails || 'Monthly view trajectory over the 12-month analytics cycle.'}</p>
+              <p className="text-white/50 text-sm mt-1">{activeMetric.platformDetails || 'Monthly audience view trajectory across platforms.'}</p>
             </div>
             <div className="flex items-center gap-2">
               <span className="px-3.5 py-1.5 rounded-lg bg-brand-purple/15 text-brand-purple border border-brand-purple/30 text-xs font-bold uppercase tracking-widest flex items-center gap-1.5">

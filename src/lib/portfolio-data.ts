@@ -38,7 +38,7 @@ export const CENTRAL_STATS = {
     label: "YouTube Subscribers",
   },
   videosProducedCount: 500,
-  brandPartnershipsCount: 9,
+  brandPartnershipsCount: 10,
 };
 
 export const STATS = {
@@ -85,10 +85,11 @@ Ecosystem Network & Industry Collaborations:
 - Ehud AI Talk: Maintains an active collaboration with Abenezer Alemayehu (Abeni), the host of Ehud AI Talk, focusing on co-production planning and strategic script engineering.
 - Ethio Tech AI: Established professional relationship with Jason Peters (JayP), the CEO of Ethio Tech AI, collaborating on high-level tech interview content.
 - Web3 Network: Solid connections within the local blockchain community, specifically collaborating with Nati, a well-known Crypto OG and co-founder within the ETN ecosystem. Actively involved with Ethiopian Blockchain Week (EBW)—the premier technology event in Addis Ababa bringing together global leaders, developers, policymakers, and Web3 enthusiasts to focus on DeFi, blockchain development, and digital innovation under the Digital Ethiopia 2030 strategy. High interest in crypto futures trading, actively learning and practicing it as a core skill.
-- Brand Ambassadorships & Partnerships: Active strategic partnerships and content planning campaigns with local platforms, including corporate collaborations with the Auction Ethiopia team (managed alongside contacts Yoseph and Zelalem) to optimize digital ad spend and regional reach. Also collaborates with ArifGet (Ethiopia’s first homegrown, AI-powered digital ecosystem founded by Natnael Teferi integrating e-learning, freelancing marketplace, and digital product store with Telebirr/CBE payment integrations), Bybit, Ehud AI, HuluPay, LinkPay, Hawi Solutions, Hulugram, and Ethiopian Blockchain Week (EBW).
+- Brand Ambassadorships & Partnerships: Active strategic partnerships and content planning campaigns with local platforms, including corporate collaborations with the Auction Ethiopia team (managed alongside contacts Yoseph and Zelalem) to optimize digital ad spend and regional reach. Also collaborates with ArifGet (Ethiopia’s first homegrown, AI-powered digital ecosystem founded by Natnael Teferi integrating e-learning, freelancing marketplace, and digital product store with Telebirr/CBE payment integrations), Bybit, NASA Space Apps Challenge Addis Ababa, Ehud AI, HuluPay, LinkPay, Hawi Solutions, Hulugram, and Ethiopian Blockchain Week (EBW).
 
 Aviation & Aerospace Milestones:
 - Space & Tech Events: Heavily involved in regional aerospace community building, including designing behind-the-scenes content frameworks for major tech events like Yuri's Night and digital transformation summits in Addis Ababa.
+- NASA Space Apps Challenge Addis Ababa (Joint Collaboration Initiative): Established collaborative partnership with the NASA Space Apps Challenge Addis Ababa, the local chapter of the world's largest global space hackathon in Ethiopia. The 2026 event marks its 9th edition hosted in Addis Ababa since its premiere in 2017, held under the theme "The Next Frontier" on November 14-15, 2026 at the Shaggar Institute of Technology (SIT), featuring both on-site and online tracks. Teams build software, stories, hardware concepts, and visualizations using open-source data from NASA and partner space agencies addressing real-world challenges on Earth and space (Moon & Mars exploration, agriculture, environmental monitoring). Nafyad actively participates and collaborates at SIT.
 
 Event History & Milestones:
 - TikTok Creative Awards: Attended the official TikTok Creative Awards program in Addis Ababa in November 2025, operating as an active creator and conducting on-the-floor live interviews with top regional digital figures.
