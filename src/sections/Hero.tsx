@@ -125,7 +125,7 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen w-full max-w-full flex flex-col items-center justify-center overflow-hidden pt-24 sm:pt-28 pb-14 sm:pb-16 px-2 sm:px-0">
+    <section className="relative min-h-0 md:min-h-screen w-full max-w-full flex flex-col items-center justify-center overflow-hidden pt-24 pb-8 sm:pt-28 md:pb-16 px-2 sm:px-0">
       
       {/* Interactive Cursor Glow (Spline / Magnific dynamic spotlight style) */}
       <motion.div

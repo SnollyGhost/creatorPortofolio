@@ -59,12 +59,12 @@ export const AnalyticsDashboard = () => {
   }, [activeMetric]);
 
   return (
-    <section id="analytics" className="py-24 px-6 relative overflow-hidden bg-black">
+    <section id="analytics" className="py-12 md:py-24 px-5 md:px-6 relative overflow-hidden bg-black">
       {/* Mesh Gradient Effect */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-purple/5 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/4 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 md:gap-8 mb-8 md:mb-16">
           <div>
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -184,9 +184,9 @@ export const AnalyticsDashboard = () => {
            initial={{ opacity: 0, y: 40 }}
            whileInView={{ opacity: 1, y: 0 }}
            viewport={{ once: true }}
-           className="glass p-8 rounded-[40px] border-white/10"
+           className="glass p-5 md:p-8 rounded-[32px] md:rounded-[40px] border-white/10"
         >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 md:gap-6 mb-6 md:mb-8">
             <div>
               <div className="flex items-center gap-3">
                 <h3 className="text-2xl font-display font-bold mb-1">{activeMetric.label}</h3>

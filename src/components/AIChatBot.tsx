@@ -47,11 +47,25 @@ export const AIChatBot = () => {
     }
   }, [messages, isStreaming]);
 
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort(new DOMException("Component unmounted", "AbortError"));
+    };
+  }, []);
+
   const handleSend = async (customInput?: string) => {
     const messageToSend = customInput || input;
     if (!messageToSend.trim() || isLoading || isStreaming) return;
 
     const userMessage = messageToSend.trim();
+    const historyToSend = messages
+      .slice(1)
+      .filter((m) => m.content.trim().length > 0)
+      .slice(-10)
+      .map((m) => ({ role: m.role, content: m.content }));
+
     setInput("");
     setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
     setIsLoading(true);
@@ -70,6 +84,14 @@ export const AIChatBot = () => {
       day: "numeric",
     });
 
+    abortControllerRef.current?.abort(new DOMException("Superseded by new message", "AbortError"));
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+    const timeoutId = window.setTimeout(
+      () => controller.abort(new DOMException("Request timed out", "TimeoutError")),
+      25000
+    );
+
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
@@ -77,8 +99,9 @@ export const AIChatBot = () => {
           "Content-Type": "application/json",
           "Accept": "text/event-stream",
         },
+        signal: controller.signal,
         body: JSON.stringify({
-          messages: messages.map((m) => ({ role: m.role, content: m.content })),
+          messages: historyToSend,
           userMessage: userMessage,
           currentAge: currentAge,
           dateStr: dateStr,
@@ -162,11 +185,24 @@ export const AIChatBot = () => {
         }
       }
     } catch (error: any) {
-      console.error("Chat Error:", error);
-      const errText = error.message || "";
+      const isCancelledAbort =
+        error?.name === "AbortError" &&
+        (error?.message === "Component unmounted" || error?.message === "Superseded by new message");
+      if (isCancelledAbort) {
+        return;
+      }
+
+      const isTimeout = error?.name === "TimeoutError" || error?.name === "AbortError";
+      if (!isTimeout) {
+        console.error("Chat Error:", error);
+      }
+
+      const errText = error?.message || "";
       const isConfigError = errText.includes("GEMINI_API_KEY") || errText.includes("API key") || errText.includes("API_KEY");
       
-      let userFriendlyErrorMessage = "AI is briefly offline for maintenance. Direct inquiries are still active.";
+      let userFriendlyErrorMessage = isTimeout
+        ? "Response took longer than expected. Please try sending your message again."
+        : "AI is briefly offline for maintenance. Direct inquiries are still active.";
       if (isConfigError) {
         if (errText.includes("API_KEY_INVALID") || errText.includes("API key not valid")) {
           userFriendlyErrorMessage = "Gemini API Key Error: The provided key is invalid. Please ensure you are using a valid Gemini API key (starts with 'AIzaSy...') from Google AI Studio (https://aistudio.google.com/app/apikey) and add it to your Environment Variables as GEMINI_API_KEY.";
@@ -185,6 +221,7 @@ export const AIChatBot = () => {
         return [...updated, { role: "model", content: userFriendlyErrorMessage }];
       });
     } finally {
+      window.clearTimeout(timeoutId);
       setIsLoading(false);
       setIsStreaming(false);
     }

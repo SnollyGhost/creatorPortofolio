@@ -162,12 +162,12 @@ export const Contact = ({ selectedPackage }: ContactProps) => {
   };
 
   return (
-    <section ref={sectionRef} id="contact" className="py-24 px-6 bg-[#030303] relative overflow-hidden">
+    <section ref={sectionRef} id="contact" className="py-12 md:py-24 px-5 md:px-6 bg-[#030303] relative overflow-hidden">
        {/* Background accent */}
        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-brand-neon/10 rounded-full blur-[100px] translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
             <div>
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -189,12 +189,12 @@ export const Contact = ({ selectedPackage }: ContactProps) => {
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="text-white/40 text-sm md:text-base font-light mb-12 max-w-md"
+                className="text-white/40 text-sm md:text-base font-light mb-8 md:mb-12 max-w-md"
               >
                 Ready to work together? Send a quick message or choose your preferred chat app below.
               </motion.p>
 
-              <div className="space-y-12 mb-16">
+              <div className="space-y-6 md:space-y-12 mb-10 md:mb-16">
                 {[
                   { icon: TelegramIcon, label: 'Telegram', value: 'Chat on Telegram', href: 'https://t.me/SnollyGhost' },
                   { icon: WhatsappIcon, label: 'WhatsApp', value: 'Chat on WhatsApp', href: 'https://wa.me/251909563789' },
@@ -423,7 +423,7 @@ export const Contact = ({ selectedPackage }: ContactProps) => {
             </motion.div>
           </div>
 
-          <footer className="mt-32 pt-12 border-t border-white/5 text-center">
+          <footer className="mt-14 pt-8 md:mt-32 md:pt-12 border-t border-white/5 text-center">
              <div className="text-white/60 text-xs md:text-sm font-mono tracking-widest uppercase">
                 &copy; {new Date().getFullYear()} {CREATOR_NAME} &bull; All Rights Reserved
              </div>

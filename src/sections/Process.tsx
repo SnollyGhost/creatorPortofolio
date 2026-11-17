@@ -31,9 +31,9 @@ const steps = [
 
 export const Process = () => {
   return (
-    <section id="process" className="py-24 px-6 bg-[#030303] overflow-hidden">
+    <section id="process" className="py-12 md:py-24 px-5 md:px-6 bg-[#030303] overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 md:gap-8 mb-10 md:mb-20">
           <div className="max-w-2xl">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -70,7 +70,7 @@ export const Process = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="relative group p-8 rounded-[32px] bg-white/[0.02] border border-white/5 overflow-hidden transition-all duration-500 hover:bg-white/[0.04] hover:border-white/10"
+              className="relative group p-6 md:p-8 rounded-[32px] bg-white/[0.02] border border-white/5 overflow-hidden transition-all duration-500 hover:bg-white/[0.04] hover:border-white/10"
             >
               {/* Step Number Backdrop */}
               <div className="absolute -top-4 -right-4 text-9xl font-display font-bold text-white/[0.04] group-hover:text-brand-purple/10 group-hover:scale-105 transition-all duration-500 pointer-events-none">
@@ -81,7 +81,7 @@ export const Process = () => {
               <div className={`absolute inset-0 bg-gradient-to-br ${step.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
 
               <div className="relative z-10 flex flex-col h-full">
-                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-12 group-hover:scale-110 group-hover:bg-brand-purple/10 transition-all duration-500">
+                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-6 md:mb-12 group-hover:scale-110 group-hover:bg-brand-purple/10 transition-all duration-500">
                   <step.icon className="w-5 h-5 text-white/40 group-hover:text-brand-purple transition-colors" />
                 </div>
                 

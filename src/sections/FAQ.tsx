@@ -7,9 +7,9 @@ export const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-24 px-6 bg-[#050505]">
+    <section id="faq" className="py-12 md:py-24 px-5 md:px-6 bg-[#050505]">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 md:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -70,7 +70,7 @@ export const FAQ = () => {
         <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          className="mt-16 p-8 rounded-[32px] glass border border-brand-purple/20 flex flex-col md:flex-row items-center justify-between gap-6"
+          className="mt-10 p-6 md:mt-16 md:p-8 rounded-[32px] glass border border-brand-purple/20 flex flex-col md:flex-row items-center justify-between gap-6"
         >
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-brand-purple/20 flex items-center justify-center">

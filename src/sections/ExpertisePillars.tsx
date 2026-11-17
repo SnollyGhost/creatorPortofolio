@@ -6,12 +6,12 @@ import { cn } from '../lib/utils';
 
 export const ExpertisePillars = () => {
   return (
-    <section className="py-24 px-6 bg-[#040404] relative overflow-hidden">
+    <section className="py-12 md:py-24 px-5 md:px-6 bg-[#040404] relative overflow-hidden">
       {/* Dynamic Grid Overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="mb-20">
+        <div className="mb-10 md:mb-20">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}

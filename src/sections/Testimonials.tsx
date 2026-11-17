@@ -5,12 +5,12 @@ import { TESTIMONIALS } from '../lib/data';
 
 export const Testimonials = () => {
   return (
-    <section id="testimonials" className="py-24 px-6 relative overflow-hidden bg-black">
+    <section id="testimonials" className="py-12 md:py-24 px-5 md:px-6 relative overflow-hidden bg-black">
       {/* Background elements */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-purple/5 rounded-full blur-[120px] pointer-events-none" />
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-16 gap-6 md:gap-8">
           <div className="max-w-2xl">
             <motion.div
               initial={{ opacity: 0, y: 10 }}

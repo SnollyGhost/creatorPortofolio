@@ -6,9 +6,9 @@ import creatorImg from '../assets/creator.webp';
 
 export const About = () => {
   return (
-    <section id="about" className="py-24 px-6 bg-[#050505]">
+    <section id="about" className="py-12 md:py-24 px-5 md:px-6 bg-[#050505]">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}

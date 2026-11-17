@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
 import { getSystemInstruction } from "./src/lib/ai-prompt";
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, ThinkingLevel } from "@google/genai";
 
 // Try to load .env in development
 if (process.env.NODE_ENV !== "production") {
@@ -22,6 +22,25 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+// Singleton Gemini client cache (avoids per-request client & connection overhead)
+let cachedAiClient: GoogleGenAI | null = null;
+let cachedApiKey: string | undefined;
+
+function getAiClient(apiKey: string): GoogleGenAI {
+  if (!cachedAiClient || cachedApiKey !== apiKey) {
+    cachedAiClient = new GoogleGenAI({
+      apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        },
+      },
+    });
+    cachedApiKey = apiKey;
+  }
+  return cachedAiClient;
+}
 
 // Transporter cache
 let transporter: nodemailer.Transporter | null = null;
@@ -52,7 +71,7 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   });
 }
 
-// Chatbot API Endpoint (Secure server-side proxy with real-time SSE streaming)
+// Chatbot API Endpoint (Secure server-side proxy with low-latency SSE streaming)
 app.post("/api/chat", async (req, res) => {
   try {
     const { messages, userMessage, currentAge, dateStr } = req.body;
@@ -63,12 +82,29 @@ app.post("/api/chat", async (req, res) => {
     }
 
     const systemPrompt = getSystemInstruction(dateStr, currentAge);
-    const contents = [
-      ...(messages || []).map((m: any) => ({
+
+    // Trim conversation to recent turns and drop leading model greeting to minimize token latency
+    const recentHistory = (Array.isArray(messages) ? messages : [])
+      .filter((m: any) => m && typeof m.content === 'string' && m.content.trim().length > 0)
+      .slice(-10)
+      .map((m: any) => ({
         role: m.role === 'assistant' || m.role === 'model' ? 'model' : 'user',
-        parts: [{ text: m.content || '' }]
-      })),
-      { role: "user", parts: [{ text: userMessage || '' }] }
+        parts: [{ text: m.content.trim() }]
+      }));
+
+    while (recentHistory.length > 0 && recentHistory[0].role === 'model') {
+      recentHistory.shift();
+    }
+
+    const contents = [
+      ...recentHistory,
+      { role: "user", parts: [{ text: (userMessage || '').trim() }] }
+    ];
+
+    const ai = getAiClient(apiKey);
+    const modelConfigs = [
+      { model: "gemini-4-hydrogen", thinkingLevel: ThinkingLevel.LOW },
+      { model: "gemini-3.1-flash-lite", thinkingLevel: ThinkingLevel.MINIMAL },
     ];
 
     const wantsStream = req.headers.accept?.includes("text/event-stream") || req.query.stream === "true";
@@ -77,40 +113,56 @@ app.post("/api/chat", async (req, res) => {
       res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
       res.setHeader("Cache-Control", "no-cache, no-transform");
       res.setHeader("Connection", "keep-alive");
+      res.setHeader("X-Accel-Buffering", "no");
       res.flushHeaders?.();
 
-      const ai = new GoogleGenAI({ apiKey });
-      const modelsToTry = [
-        "gemini-3.8-flash",
-        "gemini-3.1-flash-lite",
-        "gemini-flash-latest"
-      ];
+      let clientClosed = false;
+      res.on("close", () => {
+        if (!res.writableEnded) {
+          clientClosed = true;
+        }
+      });
 
       let streamed = false;
       let lastError: any = null;
 
-      for (const model of modelsToTry) {
+      for (const { model, thinkingLevel } of modelConfigs) {
+        if (clientClosed) break;
         try {
-          const streamResponse = await ai.models.generateContentStream({
-            model,
-            contents: contents.map(c => ({
-              role: c.role,
-              parts: c.parts.map(p => ({ text: p.text }))
-            })),
-            config: {
-              systemInstruction: systemPrompt,
-              temperature: 0.4
-            }
-          });
+          const streamResponse = await withTimeout(
+            ai.models.generateContentStream({
+              model,
+              contents,
+              config: {
+                systemInstruction: systemPrompt,
+                thinkingConfig: { thinkingLevel },
+              }
+            }),
+            12000
+          );
 
-          for await (const chunk of streamResponse) {
-            const chunkText = chunk.text;
-            if (chunkText) {
-              res.write(`data: ${JSON.stringify({ text: chunkText })}\n\n`);
+          const iterator = streamResponse[Symbol.asyncIterator]();
+          const first = await withTimeout(iterator.next(), 12000);
+
+          if (!first.done) {
+            const firstText = first.value?.text;
+            if (firstText && !clientClosed) {
+              res.write(`data: ${JSON.stringify({ text: firstText })}\n\n`);
+            }
+            while (!clientClosed) {
+              const next = await iterator.next();
+              if (next.done) break;
+              const chunkText = next.value?.text;
+              if (chunkText) {
+                res.write(`data: ${JSON.stringify({ text: chunkText })}\n\n`);
+              }
             }
           }
-          res.write("data: [DONE]\n\n");
-          res.end();
+
+          if (!clientClosed) {
+            res.write("data: [DONE]\n\n");
+            res.end();
+          }
           streamed = true;
           break;
         } catch (err: any) {
@@ -119,7 +171,7 @@ app.post("/api/chat", async (req, res) => {
         }
       }
 
-      if (!streamed) {
+      if (!streamed && !clientClosed) {
         const rawMsg = lastError?.message || "All model streaming options failed.";
         const cleanMsg = (rawMsg.includes("API_KEY_INVALID") || rawMsg.includes("API key not valid"))
           ? "API key not valid. Please pass a valid Gemini API key (starts with 'AIzaSy...')."
@@ -132,28 +184,22 @@ app.post("/api/chat", async (req, res) => {
     }
 
     // Non-streaming fallback
-    const ai = new GoogleGenAI({ apiKey });
-    const modelsToTry = [
-      "gemini-3.8-flash",
-      "gemini-3.1-flash-lite",
-      "gemini-flash-latest"
-    ];
     let reply = "";
     let lastError: any = null;
 
-    for (const model of modelsToTry) {
+    for (const { model, thinkingLevel } of modelConfigs) {
       try {
-        const response = await ai.models.generateContent({
-          model,
-          contents: contents.map(c => ({
-            role: c.role,
-            parts: c.parts.map(p => ({ text: p.text }))
-          })),
-          config: {
-            systemInstruction: systemPrompt,
-            temperature: 0.4
-          }
-        });
+        const response = await withTimeout(
+          ai.models.generateContent({
+            model,
+            contents,
+            config: {
+              systemInstruction: systemPrompt,
+              thinkingConfig: { thinkingLevel },
+            }
+          }),
+          15000
+        );
 
         const textResult = response.text;
         if (textResult && textResult.trim().length > 0) {

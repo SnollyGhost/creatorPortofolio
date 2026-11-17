@@ -52,9 +52,9 @@ export const FeaturedVideos = () => {
   };
 
   return (
-    <section id="work" className="py-24 px-6 bg-[#080808]">
+    <section id="work" className="py-12 md:py-24 px-5 md:px-6 bg-[#080808]">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-12 mb-8 md:mb-16">
           <div>
             <motion.div
               initial={{ opacity: 0, x: -20 }}

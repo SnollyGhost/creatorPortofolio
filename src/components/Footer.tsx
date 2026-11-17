@@ -14,12 +14,12 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-black pt-32 pb-12 px-6 border-t border-white/5 relative overflow-hidden">
+    <footer className="bg-black pt-16 md:pt-32 pb-10 md:pb-12 px-5 md:px-6 border-t border-white/5 relative overflow-hidden">
       {/* Background Glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-brand-purple/5 blur-[150px] rounded-full pointer-events-none" />
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-16 mb-12 md:mb-24">
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <motion.div 
