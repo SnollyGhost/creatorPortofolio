@@ -138,11 +138,39 @@
         };
       })();
     </script>
+    <script>
+      // Prevent flash of plain-text static HTML in JS-enabled browsers while keeping it 100% visible to non-JS crawlers & AI bots
+      document.documentElement.classList.add('js-booting');
+    </script>
+    <style>
+      html.js-booting #static-seo-shell { display: none; }
+      #js-boot-splash { display: none; }
+      html.js-booting #js-boot-splash {
+        display: flex;
+        min-height: 100vh;
+        width: 100%;
+        background: radial-gradient(circle at 50% 40%, rgba(147, 51, 234, 0.14), #050505 60%);
+        align-items: center;
+        justify-content: center;
+      }
+      @keyframes bootPulse {
+        0%, 100% { opacity: 0.45; transform: scale(0.98); }
+        50% { opacity: 1; transform: scale(1); }
+      }
+    </style>
   </head>
   <body style="background-color:#050505;color:#f5f5f5;margin:0;">
     <div id="root">
-      <!-- Static Semantic HTML Shell: Immediately readable by Search Engines, AI Crawlers & No-JS Clients; seamlessly replaced on React mount -->
-      <main style="max-width:960px;margin:0 auto;padding:80px 24px;font-family:Inter,system-ui,sans-serif;line-height:1.65;color:#f5f5f5;background:#050505;">
+      <!-- Seamless dark splash shown only for the brief moment while JS initializes -->
+      <div id="js-boot-splash" aria-hidden="true">
+        <div style="text-align:center;animation:bootPulse 1.6s ease-in-out infinite;">
+          <div style="font-family:'Space Grotesk',system-ui,sans-serif;font-size:20px;font-weight:700;letter-spacing:0.35em;color:#f5f5f5;text-transform:uppercase;">NAFYAD</div>
+          <div style="width:42px;height:2px;margin:12px auto 0;border-radius:999px;background:linear-gradient(90deg,#9333ea,#3b82f6);"></div>
+        </div>
+      </div>
+
+      <!-- Static Semantic HTML Shell: Immediately readable by Search Engines, AI Crawlers & No-JS Clients; never flashed in JS browsers -->
+      <main id="static-seo-shell" style="max-width:960px;margin:0 auto;padding:80px 24px;font-family:Inter,system-ui,sans-serif;line-height:1.65;color:#f5f5f5;background:#050505;">
         <header style="margin-bottom:40px;">
           <p style="font-size:12px;letter-spacing:0.25em;text-transform:uppercase;color:#a855f7;margin:0 0 16px;">Nafyad Dachasa &bull; NafTech &bull; Ethiopia</p>
           <h1 style="font-family:'Space Grotesk',system-ui,sans-serif;font-size:44px;line-height:1.05;margin:0 0 20px;font-weight:600;">
