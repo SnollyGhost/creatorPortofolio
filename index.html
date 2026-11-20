@@ -4,34 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nafyad | Official Creator Portfolio</title>
-    
+
+    <!-- Preconnect & Non-Blocking Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,700&display=swap"
+    />
+
     <!-- Primary SEO Meta Tags -->
     <link rel="canonical" href="https://www.nafyad.tech/" />
+    <link rel="alternate" type="text/plain" title="LLMs.txt" href="https://www.nafyad.tech/llms.txt" />
     <!-- Google Search Console Verification Tag -->
     <meta name="google-site-verification" content="google1dd0c484d58103f7" />
     <meta name="google-site-verification" content="U7UyTPuqO-BA5IpCHFJgYSZ1HS9YxCYUxeWd8ONmvcA" />
-    <meta name="description" content="Official creator portfolio of technology creator and AI researcher Nafyad Dachasa (NafTech). Exploring software engineering, local tech insights, and digital growth in Ethiopia." />
-    <meta name="keywords" content="Nafyad, Nafyad Dachasa, Nafyad Dechasa, NafTech, Tech Creator Ethiopia, AI Researcher, Technology Creator, Computer Scientist Ethiopia" />
+    <meta name="description" content="Official creator portfolio of Nafyad Dachasa (NafTech) — Computer Science graduate, AI researcher, and tech, space & Web3 content creator in Ethiopia reaching 214K+ followers." />
+    <meta name="keywords" content="Nafyad, Nafyad Dachasa, Nafyad Dechasa, NafTech, Ethiopian Tech Content Creator, Tech Creator Ethiopia, AI Researcher Ethiopia, Space Tech Creator, Web3 Creator Ethiopia, Addis Ababa Tech Influencer" />
     <meta name="author" content="Nafyad Dachasa" />
-    
+
     <!-- Open Graph (Facebook, Telegram, LinkedIn, Discord) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="NafTech" />
     <meta property="og:url" content="https://www.nafyad.tech/" />
     <meta property="og:title" content="Nafyad | Official Creator Portfolio" />
-    <meta property="og:description" content="Official creator portfolio of technology creator and AI researcher Nafyad Dachasa (NafTech)." />
+    <meta property="og:description" content="Official creator portfolio of Nafyad Dachasa (NafTech) — Computer Science graduate, AI researcher, and tech, space & Web3 content creator in Ethiopia reaching 214K+ followers." />
     <meta property="og:image" content="https://www.nafyad.tech/LOGO.png" />
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content="Nafyad | Official Creator Portfolio" />
-    <meta property="twitter:description" content="Official creator portfolio of technology creator and AI researcher Nafyad Dachasa (NafTech)." />
-    <meta property="twitter:image" content="https://www.nafyad.tech/LOGO.png" />
 
-    <!-- Favicon / Tab Icons (Optimized for Google Search Favicon Crawler) -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/LOGO.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/LOGO.png" />
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Nafyad | Official Creator Portfolio" />
+    <meta name="twitter:description" content="Official creator portfolio of Nafyad Dachasa (NafTech) — Computer Science graduate, AI researcher, and tech, space & Web3 content creator in Ethiopia reaching 214K+ followers." />
+    <meta name="twitter:image" content="https://www.nafyad.tech/LOGO.png" />
+
+    <!-- Favicon / Tab Icons (Optimized for Google Search Favicon Crawler: >= 48x48 multiples) -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
     <link rel="apple-touch-icon" href="/LOGO.png" />
 
     <!-- Google Search Structured Data (Unified Single-Graph Schema) -->
@@ -45,7 +54,7 @@
             "url": "https://www.nafyad.tech/",
             "name": "Nafyad",
             "alternateName": ["NafTech", "Nafyad Tech"],
-            "description": "Official creator portfolio of technology creator and AI researcher Nafyad Dachasa.",
+            "description": "Official creator portfolio of technology creator and AI researcher Nafyad Dachasa in Ethiopia.",
             "publisher": {
               "@id": "https://www.nafyad.tech/#person"
             }
@@ -69,17 +78,27 @@
             "alternateName": ["Nafyad", "NafTech", "Nafyad Dechasa", "Nafyad Tech"],
             "url": "https://www.nafyad.tech/",
             "image": "https://www.nafyad.tech/LOGO.png",
-            "jobTitle": "Technology & AI Creator",
+            "jobTitle": "Technology & AI Content Creator",
+            "homeLocation": {
+              "@type": "Place",
+              "name": "Addis Ababa, Ethiopia"
+            },
             "worksFor": {
               "@type": "Organization",
               "name": "NafTech",
               "alternateName": ["NafTech Media", "Nafyad Tech"],
-              "url": "https://www.nafyad.tech/"
+              "url": "https://www.nafyad.tech/",
+              "logo": "https://www.nafyad.tech/LOGO.png"
             },
+            "award": [
+              "Telegram Digital Freedom Contest Winner ($200K Pool)",
+              "Bybit Africa Scholarship Winner (#WSOT2025 #RewriteAndReshape)"
+            ],
             "knowsAbout": [
               "Artificial Intelligence",
               "Computer Science",
               "Blockchain",
+              "Space Exploration",
               "Software Engineering",
               "Tech Content Creation",
               "Ethiopian Tech Ecosystem"
@@ -102,7 +121,7 @@
     </script>
     <script>
       // Fix for "Uncaught TypeError: Cannot redefine property: ethereum"
-      // This error often occurs when multiple wallet extensions (e.g., MetaMask, Coinbase) 
+      // This error often occurs when multiple wallet extensions (e.g., MetaMask, Coinbase)
       // try to inject the same window.ethereum property into the page.
       (function() {
         const originalDefineProperty = Object.defineProperty;
@@ -120,9 +139,72 @@
       })();
     </script>
   </head>
-  <body>
-    <div id="root"></div>
+  <body style="background-color:#050505;color:#f5f5f5;margin:0;">
+    <div id="root">
+      <!-- Static Semantic HTML Shell: Immediately readable by Search Engines, AI Crawlers & No-JS Clients; seamlessly replaced on React mount -->
+      <main style="max-width:960px;margin:0 auto;padding:80px 24px;font-family:Inter,system-ui,sans-serif;line-height:1.65;color:#f5f5f5;background:#050505;">
+        <header style="margin-bottom:40px;">
+          <p style="font-size:12px;letter-spacing:0.25em;text-transform:uppercase;color:#a855f7;margin:0 0 16px;">Nafyad Dachasa &bull; NafTech &bull; Ethiopia</p>
+          <h1 style="font-family:'Space Grotesk',system-ui,sans-serif;font-size:44px;line-height:1.05;margin:0 0 20px;font-weight:600;">
+            Nafyad Dachasa (NafTech) — Tech, AI, Space &amp; Web3 Content Creator in Ethiopia
+          </h1>
+          <p style="font-size:15px;color:#a1a1aa;margin:0;">
+            <strong>214K+</strong> Global Content Community &middot; <strong>500+</strong> Videos Created &middot; <strong>10+</strong> Global &amp; Local Tech Brand Partnerships
+          </p>
+        </header>
+
+        <section aria-labelledby="seo-about" style="margin-bottom:40px;">
+          <h2 id="seo-about" style="font-size:24px;margin:0 0 12px;">The Visionary — Beyond the Algorithm</h2>
+          <p style="font-size:17px;color:#d4d4d8;margin:0 0 14px;">
+            Nafyad is a Computer Science graduate and tech content creator who is helping shape the digital world in Ethiopia. As the founder of NafTech, he loves breaking down how modern technology works. He makes complicated topics like AI, blockchain, and space tech easy for everyone to understand through clean, high-quality videos and honest, research-backed insights.
+          </p>
+          <p style="font-size:17px;color:#d4d4d8;margin:0 0 18px;">
+            By combining his background in computer science with creative video editing, Nafyad explains international tech trends while keeping them relevant to our local community. He cuts straight to the point to give you facts without the complicated jargon. Whether he is talking about the latest AI chatbots or exploring what is next in space, he creates engaging, easy-to-follow content for curious minds.
+          </p>
+          <ul style="color:#d4d4d8;padding-left:20px;margin:0;">
+            <li><strong>Telegram Digital Freedom Contest Winner (2026):</strong> Winner in Telegram founder Pavel Durov's official $200K global creator contest.</li>
+            <li><strong>Bybit Africa Scholarship Winner:</strong> Selected under Bybit's #WSOT2025 #RewriteAndReshape African creator &amp; scholar initiative.</li>
+            <li><strong>NASA Space Apps Challenge — Addis Ababa (2026):</strong> Joint collaboration initiative for the 9th edition ("The Next Frontier", Nov 14–15, 2026 at Shaggar Institute of Technology).</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="seo-expertise" style="margin-bottom:40px;">
+          <h2 id="seo-expertise" style="font-size:24px;margin:0 0 12px;">Core Content Pillars</h2>
+          <ul style="color:#d4d4d8;padding-left:20px;margin:0;">
+            <li><strong>TechTruth:</strong> AI tools, robotics, software engineering, and local Ethiopian tech trends.</li>
+            <li><strong>Spaceverse:</strong> Aerospace, satellites, Moon &amp; Mars exploration, and space science.</li>
+            <li><strong>Cryptospace:</strong> Blockchain infrastructure, Web3 updates, and digital finance insights.</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="seo-partners" style="margin-bottom:40px;">
+          <h2 id="seo-partners" style="font-size:24px;margin:0 0 12px;">Trusted by Global Tech, Space &amp; Web3 Partners</h2>
+          <p style="color:#d4d4d8;margin:0;">
+            ArifGet, Bybit, NASA Space Apps Challenge Addis Ababa, Ehud AI, Auction Ethiopia, Hawi Solutions, HuluPay, LinkPay, Hulugram, and Ethiopian Blockchain Week (EBW).
+          </p>
+        </section>
+
+        <section aria-labelledby="seo-services" style="margin-bottom:40px;">
+          <h2 id="seo-services" style="font-size:24px;margin:0 0 12px;">Brand Partnerships &amp; Video Production Services</h2>
+          <p style="color:#d4d4d8;margin:0 0 12px;">
+            NafTech partners with AI startups, Web3 ecosystems, fintech platforms, and technology companies on sponsored video campaigns—ranging from single high-retention launch videos and 3–5 video growth campaigns to dedicated monthly and annual brand partnerships.
+          </p>
+        </section>
+
+        <footer style="border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;color:#a1a1aa;font-size:14px;">
+          <p style="margin:0 0 10px;">
+            <strong>Contact:</strong> <a href="mailto:nafyaddachasa91@gmail.com" style="color:#c084fc;">nafyaddachasa91@gmail.com</a>
+          </p>
+          <p style="margin:0;">
+            <a href="https://www.tiktok.com/@nafyad_" style="color:#d4d4d8;margin-right:16px;">TikTok (100K)</a>
+            <a href="https://web.facebook.com/profile.php?id=61575207906389" style="color:#d4d4d8;margin-right:16px;">Facebook (53K)</a>
+            <a href="https://www.youtube.com/@NafTech00" style="color:#d4d4d8;margin-right:16px;">YouTube (50K)</a>
+            <a href="https://www.instagram.com/n.a.f.y.a.d/" style="color:#d4d4d8;margin-right:16px;">Instagram (11K)</a>
+            <a href="https://www.linkedin.com/in/nafyad" style="color:#d4d4d8;">LinkedIn</a>
+          </p>
+        </footer>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

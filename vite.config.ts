@@ -35,12 +35,22 @@ export default defineConfig(({mode}) => {
       'process.env.FIREBASE_CONFIG': JSON.stringify(firebaseConfig),
     },
     build: {
-      chunkSizeWarningLimit: 2000,
+      chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {
           manualChunks(id) {
-            if (id.includes('node_modules')) {
-              return 'vendor';
+            if (!id.includes('node_modules')) return;
+            if (id.includes('recharts') || id.includes('d3-')) {
+              return 'charts-vendor';
+            }
+            if (id.includes('framer-motion') || id.includes('/motion/')) {
+              return 'motion-vendor';
+            }
+            if (id.includes('lucide-react')) {
+              return 'icons-vendor';
+            }
+            if (id.includes('react-dom') || id.includes('/react/')) {
+              return 'react-vendor';
             }
           },
         },

@@ -6,7 +6,17 @@ import creatorImg from '../assets/creator.webp';
 
 export const About = () => {
   return (
-    <section id="about" className="py-12 md:py-24 px-5 md:px-6 bg-[#050505]">
+    <section
+      id="about"
+      aria-labelledby="about-heading"
+      itemScope
+      itemType="https://schema.org/Person"
+      className="py-12 md:py-24 px-5 md:px-6 bg-[#050505]"
+    >
+      <meta itemProp="name" content="Nafyad Dachasa" />
+      <meta itemProp="alternateName" content="NafTech" />
+      <meta itemProp="jobTitle" content="Technology & AI Content Creator" />
+      <meta itemProp="url" content="https://www.nafyad.tech/" />
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           <motion.div
@@ -19,7 +29,10 @@ export const About = () => {
               <img 
                 src={creatorImg} 
                 alt={`${CREATOR_NAME} - Creator & Strategist`}
+                itemProp="image"
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 hover:scale-[1.02]"
+                loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
               />
               {/* Dynamic ambient overlay with continuous slow breathing dark interval */}
@@ -49,6 +62,7 @@ export const About = () => {
               The Visionary
             </motion.div>
             <motion.h2
+              id="about-heading"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -58,13 +72,7 @@ export const About = () => {
             </motion.h2>
             
             <div className="space-y-6 text-white/50 font-light leading-relaxed text-lg text-justify">
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="space-y-6"
-              >
+              <div itemProp="description" className="space-y-6">
                 <p>
                   Nafyad is a <span className="text-white font-medium">Computer Science graduate</span> and <span className="text-white font-medium">tech content creator</span> who is helping shape the digital world in <span className="text-white font-medium">Ethiopia</span>. As the founder of <span className="text-white font-medium underline decoration-brand-purple/30 underline-offset-4">NafTech</span>, he loves breaking down how modern technology works. He makes complicated topics like <span className="text-white font-medium">AI, blockchain, and space tech</span> easy for everyone to understand through <span className="text-white font-medium italic">clean, high-quality videos</span> and honest, <span className="text-white font-medium">research-backed insights</span>.
                 </p>
@@ -72,9 +80,7 @@ export const About = () => {
                 <p>
                   By combining his background in <span className="text-white font-medium">computer science</span> with creative <span className="text-white font-medium">video editing</span>, Nafyad explains international tech trends while keeping them relevant to our <span className="text-white font-medium">local community</span>. He cuts straight to the point to give you facts without the complicated jargon. Whether he is talking about the latest <span className="text-white font-medium italic">AI chatbots</span> or exploring what is next in space, he creates <span className="text-white font-medium">engaging, easy-to-follow content</span> for curious minds.
                 </p>
-
-
-              </motion.div>
+              </div>
               
               <motion.div 
                 initial={{ opacity: 0, y: 10 }}

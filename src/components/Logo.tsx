@@ -11,6 +11,9 @@ export const Logo = ({ className = "w-12 h-12" }: { className?: string }) => {
       <img 
         src={logoWebp} 
         alt="Naftech Logo" 
+        width={48}
+        height={48}
+        decoding="async"
         className="w-full h-full object-cover rounded-xl border border-white/10 relative z-10 drop-shadow-[0_0_8px_rgba(147,51,234,0.3)] group-hover:border-brand-purple/40 transition-colors duration-500"
         referrerPolicy="no-referrer"
       />

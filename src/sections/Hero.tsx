@@ -222,6 +222,7 @@ export const Hero = () => {
           variants={itemVariants}
           className="text-[2.5rem] xs:text-5xl sm:text-7xl md:text-8xl lg:text-[9.5rem] font-display font-light leading-[0.92] sm:leading-[0.82] tracking-tighter mb-8 sm:mb-10 select-none w-full max-w-full"
         >
+          <span className="sr-only">Nafyad Dachasa (NafTech) — Tech, AI, Space &amp; Web3 Content Creator in Ethiopia: </span>
           <span className="text-gradient block">TURNING</span>
           <span className="italic font-serif text-[#ECECEC] block my-1">CONTENT</span>
           <span className="text-brand-gradient font-bold drop-shadow-[0_0_55px_rgba(147,51,234,0.45)] block uppercase tracking-tight sm:tracking-tighter">

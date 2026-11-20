@@ -4,7 +4,6 @@ import { Menu, X, Sparkles } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const NAV_LINKS = [
-  { name: 'Strategy', href: '#process' },
   { name: 'Work', href: '#work' },
   { name: 'Analytics', href: '#analytics' },
   { name: 'Packages', href: '#packages' },
