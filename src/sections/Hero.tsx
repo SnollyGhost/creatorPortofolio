@@ -226,7 +226,7 @@ export const Hero = () => {
           <span className="text-gradient block">TURNING</span>
           <span className="italic font-serif text-[#ECECEC] block my-1">CONTENT</span>
           <span className="text-brand-gradient font-bold drop-shadow-[0_0_55px_rgba(147,51,234,0.45)] block uppercase tracking-tight sm:tracking-tighter">
-            INTO ATTENTION.
+            INTO ATTENTION
           </span>
         </motion.h1>
 
